@@ -4,6 +4,23 @@ import { FaLock, FaUser } from 'react-icons/fa';
 
 const IconTextInputWrapper = styled('div')`
   display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  width: 100%;
+`;
+
+// TODO: add theme for colours
+
+const Label = styled('label')`
+  color: #404040;
+  height: 1rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  width: 100%;
+`;
+
+const InputWrapper = styled('div')`
+  display: flex;
   width: 100%;
 `;
 
@@ -13,9 +30,14 @@ const LoginInput = styled('input')`
   border-bottom-width: 2px;
   line-height: 1.25;
   margin: 0;
+  outline: none;
   overflow: visible;
   padding: 0.5rem 2.75rem 0.5rem 1rem;
   width: 100%;
+
+  :focus {
+    border-bottom-color: #A6003A;
+  }
 `;
 
 const UserIcon = styled(FaUser)`
@@ -35,14 +57,18 @@ const LockIcon = styled(FaLock)`
 `;
 
 export interface LoginTextInputProps {
+  title: string;
   isPassword?: boolean;
 }
 
-export const LoginTextInput : React.FC<LoginTextInputProps> = ({ isPassword = false }: LoginTextInputProps) => {
+export const LoginTextInput : React.FC<LoginTextInputProps> = ({ title, isPassword = false }: LoginTextInputProps) => {
   return (
     <IconTextInputWrapper>
-      <LoginInput type={ isPassword ? 'password' : 'text' } />
-      { isPassword ? <LockIcon /> : <UserIcon /> }
+      <Label>{title}</Label>
+      <InputWrapper>
+        <LoginInput type={ isPassword ? 'password' : 'text' } />
+        { isPassword ? <LockIcon /> : <UserIcon /> }
+      </InputWrapper>
     </IconTextInputWrapper>
   );
 };
