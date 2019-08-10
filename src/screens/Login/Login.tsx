@@ -1,10 +1,12 @@
 import * as React from 'react';
 import {
   BaseScreen,
-  CenteredContainer,
+  Button,
   LoginTextInput
 } from '../../components';
 import LoginContainer from './components/LoginContainer';
+
+// TODO: remove tailwind.css and add reset stylesheet
 
 const Login : React.FC = () => {
   return (
@@ -12,6 +14,7 @@ const Login : React.FC = () => {
       <LoginContainer>
         <LoginTextInput title="username" />
         <LoginTextInput title="password" isPassword={true} />
+        <Button>Login</Button>
       </LoginContainer>
     </BaseScreen>
   );
