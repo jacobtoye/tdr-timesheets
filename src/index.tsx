@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import 'sanitize.css';
+import './assets/fonts/inter.css';
+import './index.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

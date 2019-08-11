@@ -6,8 +6,6 @@ import {
 } from '../../components';
 import LoginContainer from './components/LoginContainer';
 
-// TODO: remove tailwind.css and add reset stylesheet
-
 const Login : React.FC = () => {
   return (
     <BaseScreen>

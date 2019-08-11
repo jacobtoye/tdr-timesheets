@@ -32,7 +32,7 @@ const LoginInput = styled('input')`
   margin: 0;
   outline: none;
   overflow: visible;
-  padding: 0.5rem 2.75rem 0.5rem 1rem;
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
   width: 100%;
 
   :focus {
@@ -42,18 +42,18 @@ const LoginInput = styled('input')`
 
 const UserIcon = styled(FaUser)`
   align-self: center;
-  color: #e2e8f0;
+  color: #cacaca;
   fill: currentColor;
-  font-size: 0.75em;
-  margin-left: -1.5em;
+  font-size: 1em;
+  margin-left: -2em;
 `;
 
 const LockIcon = styled(FaLock)`
   align-self: center;
-  color: #e2e8f0;
+  color: #cacaca;
   fill: currentColor;
-  font-size: 0.75em;
-  margin-left: -1.5em;
+  font-size: 1em;
+  margin-left: -2em;
 `;
 
 export interface LoginTextInputProps {
@@ -66,7 +66,7 @@ export const LoginTextInput : React.FC<LoginTextInputProps> = ({ title, isPasswo
     <IconTextInputWrapper>
       <Label>{title}</Label>
       <InputWrapper>
-        <LoginInput type={ isPassword ? 'password' : 'text' } />
+        <LoginInput type={ isPassword ? 'password' : 'text' } data-lpignore="true" />
         { isPassword ? <LockIcon /> : <UserIcon /> }
       </InputWrapper>
     </IconTextInputWrapper>
