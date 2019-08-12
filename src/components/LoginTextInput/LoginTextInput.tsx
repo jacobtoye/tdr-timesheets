@@ -56,17 +56,17 @@ const LockIcon = styled(FaLock)`
   margin-left: -2em;
 `;
 
-export interface LoginTextInputProps {
+export interface LoginTextInputProps extends React.HTMLProps<HTMLInputElement> {
   title: string;
   isPassword?: boolean;
 }
 
-export const LoginTextInput : React.FC<LoginTextInputProps> = ({ title, isPassword = false }: LoginTextInputProps) => {
+export const LoginTextInput : React.FC<LoginTextInputProps> = ({ title, isPassword = false, onChange }: LoginTextInputProps) => {
   return (
     <IconTextInputWrapper>
       <Label>{title}</Label>
       <InputWrapper>
-        <LoginInput type={ isPassword ? 'password' : 'text' } data-lpignore="true" />
+        <LoginInput type={ isPassword ? 'password' : 'text' } data-lpignore="true" onChange={onChange} />
         { isPassword ? <LockIcon /> : <UserIcon /> }
       </InputWrapper>
     </IconTextInputWrapper>
