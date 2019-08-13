@@ -6,8 +6,13 @@ import {
 } from '../../components';
 import LoginContainer from './components/LoginContainer';
 import { useUserContext } from '../../screens/Login/UserContext';
+import { History } from 'history';
 
-const Login : React.FC = () => {
+interface LogInProps {
+  history: History;
+}
+
+const Login : React.FC<LogInProps> = ({ history }: LogInProps) => {
   const { logIn } = useUserContext();
 
   // Set up local state
@@ -19,6 +24,7 @@ const Login : React.FC = () => {
 
   const onLoginClick = () => {
     logIn(email, password);
+    history.push('/');
   };
 
   return (
