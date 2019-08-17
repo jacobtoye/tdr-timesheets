@@ -12,7 +12,7 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children, history }: MainLayoutProps) => {
   const { logOut } = useUserContext();
-  
+
   const onClick = () => {
     logOut();
     history.push('/');

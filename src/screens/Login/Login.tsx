@@ -1,9 +1,5 @@
 import * as React from 'react';
-import {
-  BaseScreen,
-  Button,
-  LoginTextInput
-} from '../../components';
+import { BaseScreen, Button, LoginTextInput } from '../../components';
 import LoginContainer from './components/LoginContainer';
 import { useUserContext } from '../../screens/Login/UserContext';
 import { History } from 'history';
@@ -12,17 +8,17 @@ interface LogInProps {
   history: History;
 }
 
-const Login : React.FC<LogInProps> = ({ history }: LogInProps) => {
+const Login: React.FC<LogInProps> = ({ history }: LogInProps) => {
   const { logIn } = useUserContext();
 
   // Set up local state
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const onEmailChange = (e: React.FormEvent<HTMLInputElement>) => setEmail(e.currentTarget.value);
-  const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => setPassword(e.currentTarget.value);
+  const onEmailChange = (e: React.FormEvent<HTMLInputElement>): void => setEmail(e.currentTarget.value);
+  const onPasswordChange = (e: React.FormEvent<HTMLInputElement>): void => setPassword(e.currentTarget.value);
 
-  const onLoginClick = () => {
+  const onLoginClick = (): void => {
     logIn(email, password);
     history.push('/');
   };

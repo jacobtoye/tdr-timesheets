@@ -7,7 +7,7 @@ const App: React.FC = () => {
     <UserProvider>
       <Router />
     </UserProvider>
-  )
+  );
 };
 
 export default App;

@@ -29,18 +29,18 @@ export const UserContext = React.createContext<UserContext>({
   logOut: () => {},
 });
 
-export const UserProvider: React.FC<{}> = props => {
+export const UserProvider: React.FC<{}> = ({ children }) => {
   const [userState, setUserState] = React.useState<UserState>(initialState);
 
   const getUser = async () => {
-    let user: any = null;
+    let user: User | undefined = undefined;
 
     try {
       // Get the user from the server. We've likely already authenticated. If not the user will be null.
       // user = await accountsGraphQL.getUser()
       user = {
         id: -1,
-        userName :'test',
+        userName: 'test',
         email: 'test.user@email.com',
       };
 
@@ -48,7 +48,7 @@ export const UserProvider: React.FC<{}> = props => {
     } catch (error) {
       console.error('There was an error logging in.', error);
     } finally {
-      // Save the retrieved user to user state 
+      // Save the retrieved user to user state
       setUserState({ user: user && { ...user, id: user.id }, loggingIn: false });
     }
   };
@@ -61,7 +61,7 @@ export const UserProvider: React.FC<{}> = props => {
 
   const logOut = async () => {
     console.log('Logging out user.');
-    // await accountsGraphQL.logout();
+    // await accountsGraphQL.logout();l
     setUserState({ user: undefined, loggingIn: false });
   };
 
@@ -75,9 +75,9 @@ export const UserProvider: React.FC<{}> = props => {
         logOut,
       }}
     >
-      {props.children}
+      {children}
     </UserContext.Provider>
-  )
-}
+  );
+};
 
 export const useUserContext = () => React.useContext(UserContext);

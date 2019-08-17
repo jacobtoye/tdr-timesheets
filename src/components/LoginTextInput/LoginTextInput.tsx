@@ -36,7 +36,7 @@ const LoginInput = styled('input')`
   width: 100%;
 
   :focus {
-    border-bottom-color: #A6003A;
+    border-bottom-color: #a6003a;
   }
 `;
 
@@ -61,13 +61,17 @@ export interface LoginTextInputProps extends React.HTMLProps<HTMLInputElement> {
   isPassword?: boolean;
 }
 
-export const LoginTextInput : React.FC<LoginTextInputProps> = ({ title, isPassword = false, onChange }: LoginTextInputProps) => {
+export const LoginTextInput: React.FC<LoginTextInputProps> = ({
+  title,
+  isPassword = false,
+  onChange,
+}: LoginTextInputProps) => {
   return (
     <IconTextInputWrapper>
       <Label>{title}</Label>
       <InputWrapper>
-        <LoginInput type={ isPassword ? 'password' : 'text' } data-lpignore="true" onChange={onChange} />
-        { isPassword ? <LockIcon /> : <UserIcon /> }
+        <LoginInput type={isPassword ? 'password' : 'text'} data-lpignore="true" onChange={onChange} />
+        {isPassword ? <LockIcon /> : <UserIcon />}
       </InputWrapper>
     </IconTextInputWrapper>
   );
