@@ -22,9 +22,9 @@ const activeClassName = 'nav-item-active';
 const Tab = styled(NavLink)<TabProps>`
   align-items: center;
   border-bottom: 2px solid #e0dce0;
-  border-bottom-color: #e0dce0;
+  border-bottom-color: #ffffff;
   border-bottom-style: solid;
-  border-bottom-width: 0;
+  border-bottom-width: 2px;
   color: #cccccc;
   display: flex;
   font-size: 12px;
@@ -33,8 +33,8 @@ const Tab = styled(NavLink)<TabProps>`
   text-decoration: none;
   word-break: keep-all;
 
-  &.${activeClassName} {
-    border-bottom-width: 2px;
+  &.${activeClassName}, &:hover {
+    border-bottom-color: #e0dce0;
     color: #666666;
   }
 `;
