@@ -21,7 +21,7 @@ const Login: React.FC<LogInProps> = ({ history }: LogInProps) => {
 
   const onLoginClick = (): void => {
     logIn(email, password);
-    history.push('/');
+    history.push('/timesheet');
   };
 
   return (

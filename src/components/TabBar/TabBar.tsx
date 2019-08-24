@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
+import { NavLink } from 'react-router-dom';
 
 const TabBarContainer = styled('div')`
   background-color: #ffffff;
@@ -13,34 +14,46 @@ const TabBarContainer = styled('div')`
 `;
 
 interface TabProps {
-  selected?: boolean;
+  activeClassName: string;
 }
 
-const Tab = styled('div')<TabProps>`
+const activeClassName = 'nav-item-active';
+
+const Tab = styled(NavLink)<TabProps>`
   align-items: center;
   border-bottom: 2px solid #e0dce0;
   border-bottom-color: #e0dce0;
   border-bottom-style: solid;
-  border-bottom-width: ${({ selected = false }: TabProps) => (selected ? '2px' : '0')};
-  color: ${({ selected = false }: TabProps) => (selected ? '#666666' : '#cccccc')};
+  border-bottom-width: 0;
+  color: #cccccc;
   display: flex;
   font-size: 12px;
   height: 100%;
   padding: 0 8px;
+  text-decoration: none;
   word-break: keep-all;
+
+  &.${activeClassName} {
+    border-bottom-width: 2px;
+    color: #666666;
+  }
 `;
 
-interface TabBarProps {
-  children?: JSX.Element;
-}
-
-export const TabBar: React.FC<TabBarProps> = ({ children }: TabBarProps) => {
+export const TabBar: React.FC<{}> = () => {
   return (
     <TabBarContainer>
-      <Tab>Timesheet</Tab>
-      <Tab selected={true}>Leave</Tab>
-      <Tab>Bonus</Tab>
-      <Tab>TODOs</Tab>
+      <Tab to="/timesheet" activeClassName={activeClassName}>
+        Timesheet
+      </Tab>
+      <Tab to="/leave" activeClassName={activeClassName}>
+        Leave
+      </Tab>
+      <Tab to="/bonus" activeClassName={activeClassName}>
+        Bonus
+      </Tab>
+      <Tab to="/todos" activeClassName={activeClassName}>
+        Todos
+      </Tab>
     </TabBarContainer>
   );
 };
