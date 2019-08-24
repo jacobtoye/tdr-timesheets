@@ -4,6 +4,7 @@ import AppBarButton from './AppBarButton';
 
 const AppBarWrapper = styled('div')`
   background: linear-gradient(0.5turn, #7f4875, #704270);
+  border-bottom: 1px solid #e3d8e3;
   display: grid;
   grid-gap: 0;
   grid-template-columns: 64px auto 64px;
