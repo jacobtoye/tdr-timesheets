@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { BaseScreen, Button, LoginTextInput } from '../../components';
+import { BaseScreen, Button } from '../../components';
 import LoginContainer from './components/LoginContainer';
+import LoginTextInput from './components/LoginTextInput';
 import { useUserContext } from '../../screens/Login/UserContext';
 import { History } from 'history';
 
