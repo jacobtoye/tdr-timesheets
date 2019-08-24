@@ -1,7 +1,5 @@
 import * as React from 'react';
-import { BaseScreen } from '../BaseScreen';
-import { AppBar } from '../AppBar';
-import { TabBar } from '../TabBar';
+import { AppBar, BaseScreen, TabBar } from '../index';
 
 interface MainLayoutProps {
   children?: JSX.Element;

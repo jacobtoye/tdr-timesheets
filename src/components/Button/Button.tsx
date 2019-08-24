@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const Button = styled('button')`
+const Button = styled('button')`
   background-color: #a6003a;
   border: 0;
   border-radius: 6px;

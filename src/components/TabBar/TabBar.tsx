@@ -39,7 +39,7 @@ const Tab = styled(NavLink)<TabProps>`
   }
 `;
 
-export const TabBar: React.FC<{}> = () => {
+const TabBar: React.FC<{}> = () => {
   return (
     <TabBarContainer>
       <Tab to="/timesheet" activeClassName={activeClassName}>

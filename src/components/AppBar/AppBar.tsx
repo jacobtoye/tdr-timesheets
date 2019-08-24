@@ -36,7 +36,7 @@ const SubTitle = styled(Title)`
 
 // TODO: I think we can use a router Switch to set the header content here depending on the route
 // First ButtonContainer is the Navigation icon (button)
-export const AppBar: React.FC<{}> = () => {
+const AppBar: React.FC<{}> = () => {
   return (
     <AppBarWrapper>
       <ButtonContainer>

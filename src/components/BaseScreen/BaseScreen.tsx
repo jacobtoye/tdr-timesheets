@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-export const BaseScreen = styled('div')`
+const BaseScreen = styled('div')`
   background-color: #f7f6fc;
   display: flex;
   flex-direction: column;

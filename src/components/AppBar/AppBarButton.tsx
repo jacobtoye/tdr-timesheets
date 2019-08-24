@@ -16,7 +16,7 @@ export const Button = styled('button')`
 `;
 
 // TODO: should export the above and move this to a specific button e.g. MenuButton
-export const AppBarButton: React.FC<{}> = () => {
+const AppBarButton: React.FC<{}> = () => {
   return <Button>&times;</Button>;
 };
 
