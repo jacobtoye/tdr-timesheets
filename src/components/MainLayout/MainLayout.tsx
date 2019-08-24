@@ -1,29 +1,16 @@
 import * as React from 'react';
 import { BaseScreen } from '../BaseScreen';
-import CenteredContainer from '../CenteredContainer';
-import Button from '../Button';
-import { useUserContext } from '../../screens/Login/UserContext';
-import { History } from 'history';
+import { AppBar } from '../AppBar';
 
 interface MainLayoutProps {
   children?: JSX.Element;
-  history: History;
 }
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children, history }: MainLayoutProps) => {
-  const { logOut } = useUserContext();
-
-  const onClick = () => {
-    logOut();
-    history.push('/');
-  };
-
+const MainLayout: React.FC<MainLayoutProps> = ({ children }: MainLayoutProps) => {
   return (
     <BaseScreen>
+      <AppBar />
       {children}
-      <CenteredContainer>
-        <Button onClick={onClick}>Logout</Button>
-      </CenteredContainer>
     </BaseScreen>
   );
 };

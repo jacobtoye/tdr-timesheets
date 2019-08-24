@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 
 export const BaseScreen = styled('div')`
-  background-color: #a6003a;
+  background-color: #f7f6fc;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  justify-content: center;
   width: 100vw;
 `;
 
