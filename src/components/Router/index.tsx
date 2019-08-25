@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { CSSTransition } from 'react-transition-group';
 import { useUserContext } from '../../screens/Login/UserContext';
 import MainLayout from '../MainLayout';
+import { ANIMATION_FADE_CLASSNAME, Fade } from '../Fade';
 import { BonusScreen, LeaveScreen, LoginScreen, TimesheetScreen, TodosScreen } from '../../screens';
 
 export const ROUTE_BONUS = '/bonus';
@@ -13,14 +15,14 @@ export const ROUTE_TODOS = '/todos';
 export interface RouteConfig {
   path: string;
   name: string;
-  component: React.FC;
+  Component: React.FC;
 }
 
 export const AuthedRoutes: Array<RouteConfig> = [
-  { path: ROUTE_BONUS, name: 'Bonus', component: BonusScreen },
-  { path: ROUTE_LEAVE, name: 'Leave', component: LeaveScreen },
-  { path: ROUTE_TIMESHEET, name: 'Timesheet', component: TimesheetScreen },
-  { path: ROUTE_TODOS, name: 'Todos', component: TodosScreen },
+  { path: ROUTE_BONUS, name: 'Bonus', Component: BonusScreen },
+  { path: ROUTE_LEAVE, name: 'Leave', Component: LeaveScreen },
+  { path: ROUTE_TIMESHEET, name: 'Timesheet', Component: TimesheetScreen },
+  { path: ROUTE_TODOS, name: 'Todos', Component: TodosScreen },
 ];
 
 const Router = () => {
@@ -30,12 +32,17 @@ const Router = () => {
     <BrowserRouter>
       {userState.user ? (
         <MainLayout>
-          <Switch>
-            {AuthedRoutes.map(({ path, component }: RouteConfig) => (
-              <Route key={path} exact path={path} component={component} />
-            ))}
-            <Route path="*" render={() => <Redirect to={ROUTE_TIMESHEET} />} />
-          </Switch>
+          {AuthedRoutes.map(({ path, Component }: RouteConfig) => (
+            <Route key={path} exact path={path}>
+              {({ match }) => (
+                <CSSTransition in={match != null} timeout={300} classNames={ANIMATION_FADE_CLASSNAME} unmountOnExit>
+                  <Fade>
+                    <Component />
+                  </Fade>
+                </CSSTransition>
+              )}
+            </Route>
+          ))}
         </MainLayout>
       ) : (
         <Switch>

@@ -7,8 +7,10 @@ const TimesheetScreenWrapper = styled('div')`
   display: flex;
   flex-direction: column;
   font-size: 32px;
-  height: 100vh;
   padding-top: 120px;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100vw;
 `;
 
