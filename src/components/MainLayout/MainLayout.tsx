@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AppBar, BaseScreen, NavBar } from '../index';
 
 interface MainLayoutProps {
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }: MainLayoutProps) => {
