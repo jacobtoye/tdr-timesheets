@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppBar, BaseScreen, TabBar } from '../index';
+import { AppBar, BaseScreen, NavBar } from '../index';
 
 interface MainLayoutProps {
   children?: JSX.Element;
@@ -9,7 +9,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }: MainLayoutProps) =>
   return (
     <BaseScreen>
       <AppBar />
-      <TabBar />
+      <NavBar />
       {children}
     </BaseScreen>
   );

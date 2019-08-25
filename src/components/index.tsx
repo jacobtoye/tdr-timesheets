@@ -4,4 +4,4 @@ export { default as Button } from './Button';
 export { default as CenteredContainer } from './CenteredContainer';
 export { default as Container } from './Container';
 export { default as MainLayout } from './MainLayout';
-export { default as TabBar } from './TabBar';
+export { default as NavBar } from './NavBar';

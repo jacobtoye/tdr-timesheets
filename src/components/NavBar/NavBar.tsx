@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
 import { AuthedRoutes, RouteConfig } from '../Router';
 
-const TabBarContainer = styled('div')`
+const NavBarContainer = styled('div')`
   background-color: #ffffff;
   display: grid;
   grid-gap: 8px;
@@ -14,13 +14,13 @@ const TabBarContainer = styled('div')`
   padding: 0 16px;
 `;
 
-interface TabProps {
+interface NavTabProps {
   activeClassName: string;
 }
 
 const activeClassName = 'nav-item-active';
 
-const Tab = styled(NavLink)<TabProps>`
+const NavTab = styled(NavLink)<NavTabProps>`
   align-items: center;
   border-bottom: 2px solid #e0dce0;
   border-bottom-color: #ffffff;
@@ -40,16 +40,16 @@ const Tab = styled(NavLink)<TabProps>`
   }
 `;
 
-const TabBar: React.FC<{}> = () => {
+const NavBar: React.FC<{}> = () => {
   return (
-    <TabBarContainer>
+    <NavBarContainer>
       {AuthedRoutes.map(({ path, name }: RouteConfig) => (
-        <Tab key={path} to={path} activeClassName={activeClassName}>
+        <NavTab key={path} to={path} activeClassName={activeClassName}>
           {name}
-        </Tab>
+        </NavTab>
       ))}
-    </TabBarContainer>
+    </NavBarContainer>
   );
 };
 
-export default TabBar;
+export default NavBar;
