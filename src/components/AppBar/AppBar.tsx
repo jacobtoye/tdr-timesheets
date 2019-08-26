@@ -23,6 +23,7 @@ const Title = styled('h1')`
   color: #ffffff;
   display: flex;
   font-size: 18px;
+  font-weight: 500;
   height: 24px;
   margin: 0;
 `;
@@ -30,6 +31,7 @@ const Title = styled('h1')`
 const SubTitle = styled(Title)`
   color: rgba(255, 255, 255, 0.33);
   font-size: 14px;
+  font-weight: 500;
   height: 24px;
   margin: 0;
 `;
