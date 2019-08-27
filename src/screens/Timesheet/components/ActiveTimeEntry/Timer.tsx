@@ -1,5 +1,9 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
+import differenceInHours from 'date-fns/differenceInHours';
+import differenceInMinutes from 'date-fns/differenceInMinutes';
+import differenceInSeconds from 'date-fns/differenceInSeconds';
+import useInterval from '../../../../hooks/useInterval';
 import CenteredItemsContainer from './CenteredItemsContainer';
 
 const TimerContainer = styled(CenteredItemsContainer)`
@@ -7,12 +11,27 @@ const TimerContainer = styled(CenteredItemsContainer)`
   height: 32px;
 `;
 
-const Timer: React.FC<{}> = () => {
-  const now = new Date();
+interface TimerProps {
+  startTime: number;
+}
+
+const Timer: React.FC<TimerProps> = ({ startTime }: TimerProps) => {
+  const startTimeAsDate = new Date(startTime);
+  const [now, setNow] = useState(Date.now());
+
+  // TODO: this seems a bit hacky, can we not do it nicer?
+  const nowDate = new Date(now);
+  const hours = Math.abs(differenceInHours(startTimeAsDate, nowDate));
+  const minutes = Math.abs(differenceInMinutes(startTimeAsDate, nowDate)) % 60;
+  const seconds = Math.abs(differenceInSeconds(startTimeAsDate, nowDate)) % 60;
+
+  useInterval(() => {
+    setNow(Date.now());
+  }, 1000);
 
   return (
     <TimerContainer>
-      {now.getHours()} hrs : {now.getMinutes()} mins : {now.getSeconds()} secs
+      {('00' + hours).slice(-2)} hrs : {('00' + minutes).slice(-2)} mins : {('00' + seconds).slice(-2)} secs
     </TimerContainer>
   );
 };

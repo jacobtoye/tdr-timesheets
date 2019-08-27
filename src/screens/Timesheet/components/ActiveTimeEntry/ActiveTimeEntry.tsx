@@ -16,6 +16,8 @@ const ActiveTimeEntryWrapper = styled('div')`
 `;
 
 const ActiveTimeEntry: React.FC<{}> = () => {
+  const startTime = new Date(2019, 7, 27, 21, 0, 0);
+
   // TODO: pull the appropriate stuff from app state
   // TimePeriod: start time
   // Timer: start time
@@ -24,7 +26,7 @@ const ActiveTimeEntry: React.FC<{}> = () => {
   return (
     <ActiveTimeEntryWrapper>
       <TimePeriod />
-      <Timer />
+      <Timer startTime={startTime.getTime()} />
       <IconsContainer>
         <StopButton />
         <DeleteButton />
