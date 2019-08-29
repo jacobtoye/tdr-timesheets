@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { FaStop } from 'react-icons/fa';
 import IconBorder from './IconBorder';
 import IconSizingContainer from './IconSizingContainer';
+import { TimePeriod } from '../../TimesheetContext';
 
 const StopIconBorder = styled(IconBorder)`
   border: 3px solid white;
@@ -16,11 +17,20 @@ const StopIcon = styled(FaStop)`
   font-size: 18px;
 `;
 
-const StopButton: React.FC<{}> = () => {
+interface StopButtonProps {
+  period: TimePeriod;
+  endPeriod: (id: number) => void;
+}
+
+const StopButton: React.FC<StopButtonProps> = ({ period, endPeriod }: StopButtonProps) => {
+  const onStopClick = (): void => {
+    endPeriod(period.id);
+  };
+
   return (
     <IconSizingContainer>
       <StopIconBorder>
-        <StopIcon />
+        <StopIcon onClick={onStopClick} />
       </StopIconBorder>
     </IconSizingContainer>
   );

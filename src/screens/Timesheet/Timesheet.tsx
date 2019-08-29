@@ -1,8 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { ActiveTimeEntry } from './components';
-
-// TODO: move these out to ./components
+import { TimesheetProvider } from './TimesheetContext';
 
 const TimesheetScreenWrapper = styled('div')`
   align-items: center;
@@ -16,9 +15,12 @@ const TimesheetScreenWrapper = styled('div')`
 
 const TimesheetScreen: React.FC<{}> = () => {
   return (
-    <TimesheetScreenWrapper>
-      <ActiveTimeEntry />
-    </TimesheetScreenWrapper>
+    <TimesheetProvider>
+      <TimesheetScreenWrapper>
+        <ActiveTimeEntry />
+        
+      </TimesheetScreenWrapper>
+    </TimesheetProvider>
   );
 };
 

@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { FaTrashAlt } from 'react-icons/fa';
 import IconBorder from './IconBorder';
 import IconSizingContainer from './IconSizingContainer';
+import { TimePeriod } from '../../TimesheetContext';
 
 const DeleteIconBorder = styled(IconBorder)`
   border: 2px solid #ea3f45;
@@ -16,11 +17,20 @@ const DeleteIcon = styled(FaTrashAlt)`
   font-size: 14px;
 `;
 
-const DeleteButton: React.FC<{}> = () => {
+interface DeleteButtonProps {
+  period: TimePeriod;
+  deletePeriod: (id: number) => void;
+}
+
+const DeleteButton: React.FC<DeleteButtonProps> = ({ period, deletePeriod }: DeleteButtonProps) => {
+  const onDeleteClick = (): void => {
+    deletePeriod(period.id);
+  };
+
   return (
     <IconSizingContainer>
       <DeleteIconBorder>
-        <DeleteIcon />
+        <DeleteIcon onClick={onDeleteClick} />
       </DeleteIconBorder>
     </IconSizingContainer>
   );

@@ -3,8 +3,9 @@ import styled from '@emotion/styled';
 import DeleteButton from './DeleteButton';
 import IconsContainer from './IconsContainer';
 import StopButton from './StopButton';
-import TimePeriod from './TimePeriod';
+import TimePeriodLabel from './TimePeriodLabel';
 import Timer from './Timer';
+import { useTimesheetContext } from '../../TimesheetContext';
 
 const ActiveTimeEntryWrapper = styled('div')`
   background-color: #4f2f4f;
@@ -16,20 +17,20 @@ const ActiveTimeEntryWrapper = styled('div')`
 `;
 
 const ActiveTimeEntry: React.FC<{}> = () => {
-  const startTime = new Date(2019, 7, 27, 21, 0, 0);
+  const { timesheetState, startPeriod, endPeriod, deletePeriod } = useTimesheetContext();
 
-  // TODO: pull the appropriate stuff from app state
-  // TimePeriod: start time
-  // Timer: start time
-  // StopButton: onClick -> stop period
-  // DeleteButton: onClick -> delete period
+  // TODO: temp to provide ability to start time periods
+  if (!timesheetState.activePeriod) {
+    return <button onClick={startPeriod}>start</button>;
+  }
+
   return (
     <ActiveTimeEntryWrapper>
-      <TimePeriod />
-      <Timer startTime={startTime.getTime()} />
+      <TimePeriodLabel period={timesheetState.activePeriod} />
+      <Timer startTime={timesheetState.activePeriod.start} />
       <IconsContainer>
-        <StopButton />
-        <DeleteButton />
+        <StopButton period={timesheetState.activePeriod} endPeriod={endPeriod} />
+        <DeleteButton period={timesheetState.activePeriod} deletePeriod={deletePeriod} />
       </IconsContainer>
     </ActiveTimeEntryWrapper>
   );
