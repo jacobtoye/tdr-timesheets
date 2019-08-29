@@ -18,7 +18,6 @@ const TimesheetScreen: React.FC<{}> = () => {
     <TimesheetProvider>
       <TimesheetScreenWrapper>
         <ActiveTimeEntry />
-        
       </TimesheetScreenWrapper>
     </TimesheetProvider>
   );
