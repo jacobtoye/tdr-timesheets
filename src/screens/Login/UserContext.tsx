@@ -19,7 +19,7 @@ interface UserContext {
   logOut: () => void;
 }
 
-const initialState = { user: undefined, loggingIn: true };
+const initialState: UserState = { user: undefined, loggingIn: true };
 
 export const UserContext = React.createContext<UserContext>({
   userState: initialState,
