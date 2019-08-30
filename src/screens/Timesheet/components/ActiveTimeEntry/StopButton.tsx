@@ -28,9 +28,9 @@ const StopButton: React.FC<StopButtonProps> = ({ period, endPeriod }: StopButton
   };
 
   return (
-    <IconSizingContainer>
+    <IconSizingContainer onClick={onStopClick}>
       <StopIconBorder>
-        <StopIcon onClick={onStopClick} />
+        <StopIcon />
       </StopIconBorder>
     </IconSizingContainer>
   );

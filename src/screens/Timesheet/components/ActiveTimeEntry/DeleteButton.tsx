@@ -28,9 +28,9 @@ const DeleteButton: React.FC<DeleteButtonProps> = ({ period, deletePeriod }: Del
   };
 
   return (
-    <IconSizingContainer>
+    <IconSizingContainer onClick={onDeleteClick}>
       <DeleteIconBorder>
-        <DeleteIcon onClick={onDeleteClick} />
+        <DeleteIcon />
       </DeleteIconBorder>
     </IconSizingContainer>
   );
