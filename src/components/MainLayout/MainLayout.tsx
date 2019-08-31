@@ -7,11 +7,7 @@ const ContentContainer = styled('div')`
   position: relative;
 `;
 
-interface MainLayoutProps {
-  children?: JSX.Element | JSX.Element[];
-}
-
-const MainLayout: React.FC<MainLayoutProps> = ({ children }: MainLayoutProps) => {
+const MainLayout: React.FC<{}> = ({ children }) => {
   return (
     <TimesheetProvider>
       <BaseScreen>

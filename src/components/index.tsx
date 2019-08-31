@@ -4,5 +4,7 @@ export { default as Button } from './Button';
 export { default as CenteredContainer } from './CenteredContainer';
 export { default as Container } from './Container';
 export { default as Fade } from './Fade';
+export { default as ListRowContainer } from './ListRowContainer';
+export { default as ListRowIcon } from './ListRowIcon';
 export { default as MainLayout } from './MainLayout';
 export { default as NavBar } from './NavBar';

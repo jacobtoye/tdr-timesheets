@@ -1,17 +1,18 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import AppBarButton from './AppBarButton';
+import NewTimeButton from './NewTimeButton';
+import ActiveTimeEntry from '../ActiveTimeEntry';
+import { useTimesheetContext } from '../../screens/Timesheet/TimesheetContext';
 
 const AppBarWrapper = styled('div')`
-  background: linear-gradient(0.5turn, #7f4875, #704270);
+  background: linear-gradient(0.5turn, #7f4875, #6c3e66);
   border-bottom: 1px solid #e3d8e3;
   display: grid;
   grid-gap: 0;
   grid-template-columns: 64px auto 64px;
   grid-template-rows: 64px;
 `;
-
-const ButtonContainer = styled('div')``;
 
 const TitleContainer = styled('div')`
   padding-bottom: 8px;
@@ -39,16 +40,20 @@ const SubTitle = styled(Title)`
 // TODO: I think we can use a router Switch to set the header content here depending on the route
 // First ButtonContainer is the Navigation icon (button)
 const AppBar: React.FC<{}> = () => {
+  const { timesheetState } = useTimesheetContext();
+
+  if (timesheetState.activePeriod) {
+    return <ActiveTimeEntry />;
+  }
+
   return (
     <AppBarWrapper>
-      <ButtonContainer>
-        <AppBarButton />
-      </ButtonContainer>
+      <AppBarButton>&times;</AppBarButton>
       <TitleContainer>
-        <Title>Saturday 9:34 AM</Title>
-        <SubTitle>24th August</SubTitle>
+        <Title>Ashleigh Gawne</Title>
+        <SubTitle>Fortnight ending 24th August</SubTitle>
       </TitleContainer>
-      <ButtonContainer></ButtonContainer>
+      <NewTimeButton />
     </AppBarWrapper>
   );
 };

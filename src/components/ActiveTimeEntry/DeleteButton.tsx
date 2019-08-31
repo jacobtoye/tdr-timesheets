@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { FaTrashAlt } from 'react-icons/fa';
 import IconBorder from './IconBorder';
 import IconSizingContainer from './IconSizingContainer';
-import { TimePeriod } from '../../TimesheetContext';
+import { TimePeriod } from '../../screens/Timesheet/TimesheetContext';
 
 const DeleteIconBorder = styled(IconBorder)`
   border: 2px solid #ea3f45;

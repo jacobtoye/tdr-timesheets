@@ -5,10 +5,10 @@ import IconsContainer from './IconsContainer';
 import StopButton from './StopButton';
 import TimePeriodLabel from './TimePeriodLabel';
 import Timer from './Timer';
-import { useTimesheetContext } from '../../TimesheetContext';
+import { useTimesheetContext } from '../../screens/Timesheet/TimesheetContext';
 
 const ActiveTimeEntryWrapper = styled('div')`
-  background-color: #4f2f4f;
+  background: linear-gradient(0.5turn, #7f4875, #4f2f4f);
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -17,11 +17,10 @@ const ActiveTimeEntryWrapper = styled('div')`
 `;
 
 const ActiveTimeEntry: React.FC<{}> = () => {
-  const { timesheetState, startPeriod, endPeriod, deletePeriod } = useTimesheetContext();
+  const { timesheetState, endPeriod, deletePeriod } = useTimesheetContext();
 
-  // TODO: temp to provide ability to start time periods
   if (!timesheetState.activePeriod) {
-    return <button onClick={startPeriod}>start</button>;
+    return null;
   }
 
   return (

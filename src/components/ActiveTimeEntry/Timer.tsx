@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import differenceInHours from 'date-fns/differenceInHours';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
 import differenceInSeconds from 'date-fns/differenceInSeconds';
-import useInterval from '../../../../hooks/useInterval';
+import useInterval from '../../hooks/useInterval';
 import CenteredItemsContainer from './CenteredItemsContainer';
 
 const TimerContainer = styled(CenteredItemsContainer)`

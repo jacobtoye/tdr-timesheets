@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import format from 'date-fns/format';
 import CenteredItemsContainer from './CenteredItemsContainer';
-import { TimePeriod } from '../../TimesheetContext';
+import { TimePeriod } from '../../screens/Timesheet/TimesheetContext';
 
 const TimeText = styled('div')`
   align-items: center;

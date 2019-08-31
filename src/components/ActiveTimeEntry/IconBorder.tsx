@@ -1,11 +1,9 @@
 import styled from '@emotion/styled';
+import CenteredContainer from '../CenteredContainer';
 
-const IconBorder = styled('div')`
-  align-items: center;
+const IconBorder = styled(CenteredContainer)`
   box-sizing: border-box;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
 `;
 
 export default IconBorder;

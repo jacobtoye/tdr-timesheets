@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { FaStop } from 'react-icons/fa';
 import IconBorder from './IconBorder';
 import IconSizingContainer from './IconSizingContainer';
-import { TimePeriod } from '../../TimesheetContext';
+import { TimePeriod } from '../../screens/Timesheet/TimesheetContext';
 
 const StopIconBorder = styled(IconBorder)`
   border: 3px solid white;
