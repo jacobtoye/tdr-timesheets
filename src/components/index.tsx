@@ -2,6 +2,7 @@ export { default as AppBar } from './AppBar';
 export { default as BaseScreen } from './BaseScreen';
 export { default as Button } from './Button';
 export { default as CenteredContainer } from './CenteredContainer';
+export { default as CenteredContent } from './CenteredContent';
 export { default as Container } from './Container';
 export { default as Fade } from './Fade';
 export { default as ListRowContainer } from './ListRowContainer';
