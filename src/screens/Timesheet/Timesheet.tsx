@@ -1,28 +1,51 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { ActiveTimeEntry, TimeEntry } from './components';
-import { useTimesheetContext } from './TimesheetContext';
+import { FaTrashAlt, FaBars } from 'react-icons/fa';
+import { PeriodTotals, Timer, TimeRecords } from './components';
+import { CenteredContent } from '../../components';
+import { useTimesheetContext } from '../Timesheet/TimesheetContext';
 
 const TimesheetScreenWrapper = styled('div')`
-  align-items: center;
+  background-color: #fbf7f0;
+  color: #645f59;
   display: flex;
   flex-direction: column;
+  font-size: 16px;
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
 `;
 
-const DayHeader = styled('div')`
-  align-self: flex-start;
-  background-color: #e0dce08a;
-  color: #6c3e66;
-  font-size: 12px;
-  font-weight: 600;
-  height: 32px;
-  line-height: 32px;
-  padding: 0 24px;
+const HeaderContainer = styled('div')`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 63px;
+  padding: 14px 13px 0 13px;
   width: 100vw;
+`;
+
+const HeaderButton = styled(CenteredContent)`
+  height: 49px;
+  width: 49px;
+`;
+
+const LeftButton = styled(HeaderButton)`
+  justify-self: start;
+`;
+
+const RightButton = styled(HeaderButton)`
+  justify-self: end;
+`;
+
+const MenuIcon = styled(FaBars)`
+  color: #b3ada7;
+  font-size: 16px;
+`;
+
+const TrashIcon = styled(FaTrashAlt)`
+  color: #b3ada7;
+  font-size: 16px;
 `;
 
 const TimesheetScreen: React.FC<{}> = () => {
@@ -30,9 +53,17 @@ const TimesheetScreen: React.FC<{}> = () => {
 
   return (
     <TimesheetScreenWrapper>
-      <DayHeader>Today</DayHeader>
-      <TimeEntry key={1} start={1567198625434} end={1567209440750} />
-      <TimeEntry key={2} start={1567191503704} end={1567195106579} />
+      <HeaderContainer>
+        <LeftButton>
+          <MenuIcon />
+        </LeftButton>
+        <RightButton>
+          <TrashIcon />
+        </RightButton>
+      </HeaderContainer>
+      <Timer />
+      <PeriodTotals />
+      <TimeRecords />
     </TimesheetScreenWrapper>
   );
 };
