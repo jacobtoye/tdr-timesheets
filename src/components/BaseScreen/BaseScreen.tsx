@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import theme from '../../utils/theme';
 
 const BaseScreen = styled('div')`
-  background-color: #f7f6fc;
+  background-color: ${theme.palette.background.MAIN};
   display: flex;
   flex-direction: column;
   height: 100vh;
