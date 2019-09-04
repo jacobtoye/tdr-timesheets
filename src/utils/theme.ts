@@ -1,3 +1,5 @@
+import TimePeriodType from '../models/TimePeriodType';
+
 const grid = {
   BASELINE: 7,
   MARGIN: 13,
@@ -37,10 +39,25 @@ const palette = {
   },
 };
 
-const theme = {
+export const theme = {
   grid,
   palette,
   text,
+};
+
+export const timePeriodTypeAsColor = (type: TimePeriodType) => {
+  switch (type) {
+    case TimePeriodType.AnnualLeave:
+      return theme.palette.primaryColors.LIGHT_BLUE;
+    case TimePeriodType.Normal:
+      return theme.palette.primaryColors.BLUE;
+    case TimePeriodType.Sick:
+      return theme.palette.primaryColors.GREEN;
+    case TimePeriodType.Stat:
+      return theme.palette.primaryColors.ORANGE;
+    case TimePeriodType.Training:
+      return theme.palette.primaryColors.YELLOW;
+  }
 };
 
 export default theme;
