@@ -1,4 +1,4 @@
-import TimePeriodType from '../models/TimePeriodType';
+import TimePeriodType from 'models/TimePeriodType';
 
 const grid = {
   BASELINE: 7,
