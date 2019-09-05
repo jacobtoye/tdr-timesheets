@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { BaseScreen, Button } from '../../components';
-import LoginContainer from './components/LoginContainer';
-import LoginTextInput from './components/LoginTextInput';
-import { useUserContext } from '../../screens/Login/UserContext';
+import { BaseScreen } from 'components';
+import { Logo } from './components/Logo';
+import { useUserContext } from './UserContext';
 import { History } from 'history';
 
 interface LogInProps {
@@ -26,11 +25,7 @@ const Login: React.FC<LogInProps> = ({ history }: LogInProps) => {
 
   return (
     <BaseScreen>
-      <LoginContainer>
-        <LoginTextInput title="email" onChange={onEmailChange} />
-        <LoginTextInput title="password" isPassword={true} onChange={onPasswordChange} />
-        <Button onClick={onLoginClick}>Login</Button>
-      </LoginContainer>
+      <Logo onClick={onLoginClick} />
     </BaseScreen>
   );
 };
