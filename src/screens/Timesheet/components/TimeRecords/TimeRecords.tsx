@@ -1,13 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-
-// TODO: this is duplicate in Timesheet2
-const CenteredContent = styled('div')`
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+import { CenteredContent } from 'components';
 
 const TimeRecordsContainer = styled('div')`
   padding: 0 13px;

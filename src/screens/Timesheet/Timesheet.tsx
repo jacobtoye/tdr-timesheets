@@ -2,8 +2,8 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { FaTrashAlt, FaBars } from 'react-icons/fa';
 import { PeriodTotals, Timer, TimeRecords } from './components';
-import { BaseScreen, CenteredContent } from '../../components';
-import { useTimesheetContext } from '../Timesheet/TimesheetContext';
+import { BaseScreen, CenteredContent } from 'components';
+import { useTimesheetContext } from './TimesheetContext';
 
 const HeaderContainer = styled('div')`
   display: grid;

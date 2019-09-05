@@ -1,6 +1,6 @@
-import TimePeriodType from '../../../../models/TimePeriodType';
 import styled from '@emotion/styled-base';
-import { theme, timePeriodTypeAsColor } from '../../../../utils/theme';
+import TimePeriodType from 'models/TimePeriodType';
+import { theme, timePeriodTypeAsColor } from 'utils/theme';
 
 interface TotalProps {
   percent: number;

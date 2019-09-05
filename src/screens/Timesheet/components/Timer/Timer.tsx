@@ -6,9 +6,9 @@ import differenceInHours from 'date-fns/differenceInHours';
 import differenceInMinutes from 'date-fns/differenceInMinutes';
 import differenceInSeconds from 'date-fns/differenceInSeconds';
 import format from 'date-fns/format';
-import { CenteredContent } from '../../../../components';
-import useInterval from '../../../../hooks/useInterval';
-import { useTimesheetContext } from '../../../Timesheet/TimesheetContext';
+import { CenteredContent } from 'components';
+import useInterval from 'hooks/useInterval';
+import { useTimesheetContext } from '../../TimesheetContext';
 
 // TODO: what could be cool is to have the ability to choose the type of time (Normal / leave/ etc)
 // and have the color of the circle be that colour

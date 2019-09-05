@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import TimePeriodType from '../../../../models/TimePeriodType';
+import TimePeriodType from 'models/TimePeriodType';
 import Total from './Total';
 
 const PeriodTotalsContainer = styled('div')`
