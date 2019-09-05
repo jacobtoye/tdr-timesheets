@@ -46,8 +46,8 @@ const Router = () => {
         </MainLayout>
       ) : (
         <Switch>
-          <Route path={ROUTE_TODOS} component={LoginScreen} />
-          <Route path="*" render={() => <Redirect to={ROUTE_TODOS} />} />
+          <Route path={ROUTE_LOGIN} component={LoginScreen} />
+          <Route path="*" render={() => <Redirect to={ROUTE_LOGIN} />} />
         </Switch>
       )}
     </BrowserRouter>
