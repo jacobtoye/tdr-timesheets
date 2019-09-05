@@ -2,20 +2,8 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { FaTrashAlt, FaBars } from 'react-icons/fa';
 import { PeriodTotals, Timer, TimeRecords } from './components';
-import { CenteredContent } from '../../components';
+import { BaseScreen, CenteredContent } from '../../components';
 import { useTimesheetContext } from '../Timesheet/TimesheetContext';
-
-const TimesheetScreenWrapper = styled('div')`
-  background-color: #fbf7f0;
-  color: #645f59;
-  display: flex;
-  flex-direction: column;
-  font-size: 16px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-`;
 
 const HeaderContainer = styled('div')`
   display: grid;
@@ -52,7 +40,7 @@ const TimesheetScreen: React.FC<{}> = () => {
   const { timesheetState } = useTimesheetContext();
 
   return (
-    <TimesheetScreenWrapper>
+    <BaseScreen>
       <HeaderContainer>
         <LeftButton>
           <MenuIcon />
@@ -64,7 +52,7 @@ const TimesheetScreen: React.FC<{}> = () => {
       <Timer />
       <PeriodTotals />
       <TimeRecords />
-    </TimesheetScreenWrapper>
+    </BaseScreen>
   );
 };
 
