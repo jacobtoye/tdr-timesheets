@@ -43,6 +43,7 @@ const Router = () => {
               )}
             </Route>
           ))}
+          <Route path="*" render={() => <Redirect to={ROUTE_TIMESHEET} />} />
         </MainLayout>
       ) : (
         <Switch>
