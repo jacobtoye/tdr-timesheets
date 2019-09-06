@@ -8,10 +8,54 @@ const grid = {
 };
 
 const text = {
-  normal: {
-    size: 16,
+  title: {
+    SIZE: 39,
+    LINE_HEIGHT: 56,
+  },
+  h1: {
+    SIZE: 31,
+    LINE_HEIGHT: 49,
+  },
+  h2: {
+    SIZE: 24,
+    LINE_HEIGHT: 35,
+  },
+  h3: {
+    SIZE: 19,
+    LINE_HEIGHT: 28,
+  },
+  body: {
+    SIZE: 15,
+    LINE_HEIGHT: 21,
+  },
+  body2: {
+    SIZE: 14,
+    LINE_HEIGHT: 21,
+  },
+  button: {
+    SIZE: 15,
+    LINE_HEIGHT: 21,
+  },
+  overline: {
+    SIZE: 12,
+    LINE_HEIGHT: 21,
   },
 };
+
+// https://www.designsystems.com/grids-spacing-and-layout-guides/
+// https://grtcalculator.com/
+// https://material.io/design/typography/the-type-system.html#type-scale
+
+// 39 / 56 - title
+// 31 / 49 - h1
+// 24 / 35 - h2
+// 19 / 28 - h3
+// 15 / 21 - body
+// 12 / 21 - body2 / small
+
+// button (caps?) - caps, letter spacing 1.25
+// overline (text above a heading) - caps, letter spacing 1.5
+//
 
 const palette = {
   background: {
@@ -34,7 +78,7 @@ const palette = {
   },
   text: {
     PRIMARY: '#645f59',
-    SECONDARY: '#a19d96',
+    SECONDARY: '#9a958f',
     GREY: '#b2aea8',
   },
 };
