@@ -1,1 +1,3 @@
-export { default } from './Timesheet';
+import { TimesheetScreen } from './Timesheet';
+
+export { TimesheetScreen };
