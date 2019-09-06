@@ -103,5 +103,3 @@ export const timePeriodTypeAsColor = (type: TimePeriodType) => {
       return theme.palette.primaryColors.YELLOW;
   }
 };
-
-export default theme;
