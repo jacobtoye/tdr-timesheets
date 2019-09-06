@@ -7,20 +7,18 @@ interface TotalProps {
   timePeriodType: TimePeriodType;
 }
 
-const Total = styled<'div', TotalProps>('div')`
+export const Total = styled<'div', TotalProps>('div')`
   align-items: flex-end;
   border-bottom: 4px solid;
   border-bottom-color: ${(props: TotalProps) => timePeriodTypeAsColor(props.timePeriodType)};
-  color: #b3ada7;
+  color: ${theme.palette.text.GREY};
   display: flex;
-  font-size: 10px;
-  height: ${theme.grid.BASELINE * 7}px;
+  font-size: ${theme.text.overline.SIZE}px;
+  height: ${theme.grid.BASELINE * 5}px;
   margin-bottom: 3px;
-  padding-left: 3px;
+  padding-left: 2px;
   padding-right: ${theme.grid.GUTTER}px;
   text-transform: uppercase;
   width: ${(props: TotalProps) => props.percent}%;
   min-width: fit-content;
 `;
-
-export default Total;

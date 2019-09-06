@@ -2,15 +2,14 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import TimePeriodType from 'models/TimePeriodType';
 import { Total } from './Total';
+import { theme } from 'utils/theme';
 
-const PeriodTotalsContainer = styled('div')`
-  padding: 0 13px;
-`;
+const PeriodTotalsContainer = styled('div')``;
 
 const TotalHeader = styled('div')`
-  font-size: 14px;
-  height: 14px;
-  line-height: 14px;
+  font-size: ${theme.text.body2.SIZE}px;
+  height: ${theme.text.body2.LINE_HEIGHT}px;
+  line-height: ${theme.text.body2.LINE_HEIGHT}px;
 `;
 
 const Totals = styled('div')`
@@ -19,10 +18,12 @@ const Totals = styled('div')`
 `;
 
 // TODO: pass in state and work out each total
-const PeriodTotals: React.FC<{}> = () => {
+export const PeriodTotals: React.FC<{}> = () => {
   return (
     <PeriodTotalsContainer>
-      <TotalHeader>Fortnight: 77:31</TotalHeader>
+      <TotalHeader>
+        Fortnight: <strong>77:31</strong>
+      </TotalHeader>
       <Totals>
         <Total percent={91} timePeriodType={TimePeriodType.Normal}>
           {TimePeriodType.Normal}
@@ -37,5 +38,3 @@ const PeriodTotals: React.FC<{}> = () => {
     </PeriodTotalsContainer>
   );
 };
-
-export default PeriodTotals;

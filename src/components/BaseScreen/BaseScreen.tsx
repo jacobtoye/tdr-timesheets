@@ -8,6 +8,7 @@ const BaseScreen = styled('div')`
   flex-direction: column;
   font-size: 16px;
   min-height: 100vh;
+  padding: 0 ${theme.grid.MARGIN}px;
   width: 100vw;
 `;
 

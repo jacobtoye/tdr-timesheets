@@ -9,6 +9,7 @@ import format from 'date-fns/format';
 import { CenteredContent } from 'components';
 import useInterval from 'hooks/useInterval';
 import { useTimesheetContext } from '../../TimesheetContext';
+import { theme } from 'utils/theme';
 
 // TODO: what could be cool is to have the ability to choose the type of time (Normal / leave/ etc)
 // and have the color of the circle be that colour
@@ -21,7 +22,7 @@ const pulse = keyframes`
     box-shadow: 0 0 0 0 rgba(223, 114, 157, 0.6), inset 0 0 0 0 rgba(223, 114, 157, 0.6);
   }
   80% {
-    box-shadow: 0 0 0 10px rgba(223, 114, 157, 0), inset 0 0 0 4px rgba(223, 114, 157, 0);
+    box-shadow: 0 0 0 10px rgba(223, 114, 157, 0), inset 0 0 0 6px rgba(223, 114, 157, 0);
   }
   100% {
     box-shadow: 0 0 0 0 rgba(223, 114, 157, 0), inset 0 0 0 0 rgba(223, 114, 157, 0);
@@ -30,43 +31,51 @@ const pulse = keyframes`
 
 const TimerCircle = styled(CenteredContent)`
   animation: ${pulse} 3s ease infinite;
-  border: 7px solid #df729d;
+  border: 7px solid ${theme.palette.primaryColors.PINK};
   border-radius: 115px;
   height: 229px;
   width: 229px;
 `;
 
 const TimeLabel = styled('div')`
-  font-size: 2rem;
-  height: 42px;
-  line-height: 42px;
+  font-size: ${theme.text.h1.SIZE}px;
+  height: ${theme.text.h1.LINE_HEIGHT}px;
+  line-height: ${theme.text.h1.LINE_HEIGHT}px;
 `;
 
 const StartTimeLabel = styled('div')`
-  color: #b3ada7;
-  height: 21px;
-  line-height: 21px;
-  margin-top: 7px;
+  color: ${theme.palette.text.SECONDARY};
+  font-size: ${theme.text.body.SIZE}px;
+  height: ${theme.text.body.LINE_HEIGHT}px;
+  line-height: ${theme.text.body.LINE_HEIGHT}px;
 `;
 
-const TimerButton = styled(CenteredContent)`
-  background-color: #fdf7f1;
-  border-radius: 44px;
+const TimerButtonContainer = styled(CenteredContent)`
+  background-color: ${theme.palette.background.MAIN};
+  border-radius: 55px;
   margin-top: -55px;
   height: 109px;
   width: 109px;
 `;
 
+const TimerButton = styled(CenteredContent)`
+  background-color: ${theme.palette.background.DARK};
+  border-radius: 40px;
+  height: 77px;
+  width: 77px;
+`;
+
 const StopIcon = styled(FaStop)`
-  color: #655f59;
-  font-size: 24px;
+  color: ${theme.palette.text.PRIMARY};
+  font-size: 22px;
 `;
 
 const StartIcon = styled(FaPlay)`
-  color: #655f59;
-  font-size: 24px;
+  color: ${theme.palette.text.PRIMARY};
+  font-size: 22px;
 `;
 
+// TODO: move
 const formatTime = (time: number, now: number) => {
   const timeAsDate = new Date(time);
   const nowDate = new Date(now);
@@ -77,7 +86,7 @@ const formatTime = (time: number, now: number) => {
   return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${('00' + seconds).slice(-2)}`;
 };
 
-const Timer: React.FC<{}> = () => {
+export const Timer: React.FC<{}> = () => {
   const { timesheetState, startPeriod, endPeriod } = useTimesheetContext();
   const [now, setNow] = useState(Date.now());
 
@@ -95,14 +104,14 @@ const Timer: React.FC<{}> = () => {
           </Fragment>
         ) : (
           <Fragment>
-            <TimeLabel>--:--:--</TimeLabel>
+            <TimeLabel>---</TimeLabel>
             <StartTimeLabel>Not started</StartTimeLabel>
           </Fragment>
         )}
       </TimerCircle>
-      <TimerButton onClick={startPeriod}>{timesheetState.activePeriod ? <StopIcon /> : <StartIcon />}</TimerButton>
+      <TimerButtonContainer>
+        <TimerButton onClick={startPeriod}>{timesheetState.activePeriod ? <StopIcon /> : <StartIcon />}</TimerButton>
+      </TimerButtonContainer>
     </TimerContainer>
   );
 };
-
-export default Timer;
