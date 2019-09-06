@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 import { FaTrashAlt, FaBars } from 'react-icons/fa';
 import { PeriodTotals, Timer, TimeRecords } from './components';
 import { BaseScreen, CenteredContent } from 'components';
-import { useTimesheetContext } from './TimesheetContext';
 import { theme } from 'utils/theme';
 
 const HeaderContainer = styled('div')`
@@ -28,8 +27,6 @@ const RightButton = styled(HeaderButton)`
 `;
 
 export const TimesheetScreen: React.FC<{}> = () => {
-  const { timesheetState } = useTimesheetContext();
-
   return (
     <BaseScreen>
       <HeaderContainer>
