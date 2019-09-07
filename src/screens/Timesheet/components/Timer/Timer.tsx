@@ -1,13 +1,7 @@
-import React, { Fragment, useState } from 'react';
-import { keyframes } from '@emotion/core';
+import * as React from 'react';
 import styled from '@emotion/styled';
 import { FaPlay, FaStop } from 'react-icons/fa';
-import differenceInHours from 'date-fns/differenceInHours';
-import differenceInMinutes from 'date-fns/differenceInMinutes';
-import differenceInSeconds from 'date-fns/differenceInSeconds';
-import format from 'date-fns/format';
 import { CenteredContent } from 'components';
-import useInterval from 'hooks/useInterval';
 import { useTimesheetContext } from '../../TimesheetContext';
 import { theme } from 'utils/theme';
 import { TimerCircle } from './TimerCircle';
