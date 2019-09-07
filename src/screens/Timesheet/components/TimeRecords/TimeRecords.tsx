@@ -5,7 +5,9 @@ import { TimeRecord } from './TimeRecord';
 import { useTimesheetContext, TimePeriod } from 'screens/Timesheet/TimesheetContext';
 import { DayHeading } from './DayHeading';
 
-const TimeRecordsContainer = styled('div')``;
+const TimeRecordsContainer = styled('div')`
+  margin-top: ${theme.grid.BASELINE}px;
+`;
 
 const TimeRecordContainer = styled('div')`
   border-bottom: 1px solid ${theme.palette.GREY};
