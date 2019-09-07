@@ -43,22 +43,22 @@ const initialState: TimesheetState = {
       },
       {
         id: 6,
-        start: setMinutes(setHours(days[1], 13), 30).getTime(),
-        end: setMinutes(setHours(days[1], 18), 15).getTime(),
+        start: setMinutes(setHours(days[0], 13), 30).getTime(),
+        end: setMinutes(setHours(days[0], 18), 15).getTime(),
         type: TimePeriodType.Normal,
       },
     ],
     '2019-09-05': [
       {
         id: 3,
-        start: setMinutes(setHours(days[2], 10), 0).getTime(),
-        end: setMinutes(setHours(days[2], 13), 0).getTime(),
+        start: setMinutes(setHours(days[1], 10), 0).getTime(),
+        end: setMinutes(setHours(days[1], 13), 0).getTime(),
         type: TimePeriodType.Sick,
       },
       {
         id: 4,
-        start: setMinutes(setHours(days[2], 13), 30).getTime(),
-        end: setMinutes(setHours(days[2], 18), 15).getTime(),
+        start: setMinutes(setHours(days[1], 13), 30).getTime(),
+        end: setMinutes(setHours(days[1], 18), 15).getTime(),
         type: TimePeriodType.Sick,
       },
     ],
