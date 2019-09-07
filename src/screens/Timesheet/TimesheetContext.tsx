@@ -1,4 +1,10 @@
 import * as React from 'react';
+import TimePeriodType from 'models/TimePeriodType';
+
+export interface ActiveTimeRecord {
+  start: number;
+  type: TimePeriodType;
+}
 
 export interface TimePeriod {
   id: number;
@@ -9,6 +15,7 @@ export interface TimePeriod {
 interface TimesheetState {
   activePeriod?: TimePeriod;
   timePeriods: Record<number, TimePeriod>;
+  activePeriod?: ActiveTimeRecord;
 }
 
 interface TimesheetContext {

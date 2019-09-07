@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { CenteredContent } from 'components';
 import { theme } from 'utils/theme';
 import { differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns/esm';
-import { TimePeriod } from 'screens/Timesheet/TimesheetContext';
+import { ActiveTimeRecord } from 'screens/Timesheet/TimesheetContext';
 import useInterval from 'hooks/useInterval';
 import format from 'date-fns/esm/format';
 
@@ -53,7 +53,7 @@ const formatTime = (time: number, now: number) => {
 };
 
 interface TimerCircleProps {
-  activePeriod?: TimePeriod;
+  activePeriod?: ActiveTimeRecord;
 }
 
 export const TimerCircle: React.FC<TimerCircleProps> = ({ activePeriod }: TimerCircleProps) => {
