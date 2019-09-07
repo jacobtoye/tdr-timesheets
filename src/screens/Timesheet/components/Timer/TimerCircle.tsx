@@ -3,10 +3,10 @@ import { keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import { CenteredContent } from 'components';
 import { theme } from 'utils/theme';
-import { differenceInHours, differenceInMinutes, differenceInSeconds } from 'date-fns/esm';
 import { ActiveTimeRecord } from 'screens/Timesheet/TimesheetContext';
 import useInterval from 'hooks/useInterval';
 import format from 'date-fns/esm/format';
+import { duration, toTimeString } from 'utils/time';
 
 const pulse = keyframes`
 0% {
@@ -41,17 +41,6 @@ const StartTimeLabel = styled('div')`
   line-height: ${theme.text.body.LINE_HEIGHT}px;
 `;
 
-// TODO: this should be in a helper
-const formatTime = (time: number, now: number) => {
-  const timeAsDate = new Date(time);
-  const nowDate = new Date(now);
-  const hours = Math.abs(differenceInHours(timeAsDate, nowDate));
-  const minutes = Math.abs(differenceInMinutes(timeAsDate, nowDate)) % 60;
-  const seconds = Math.abs(differenceInSeconds(timeAsDate, nowDate)) % 60;
-
-  return `${('00' + hours).slice(-2)}:${('00' + minutes).slice(-2)}:${('00' + seconds).slice(-2)}`;
-};
-
 interface TimerCircleProps {
   activePeriod?: ActiveTimeRecord;
 }
@@ -67,7 +56,7 @@ export const TimerCircle: React.FC<TimerCircleProps> = ({ activePeriod }: TimerC
     <TimerCircleContainer>
       {activePeriod ? (
         <Fragment>
-          <TimeLabel>{formatTime(activePeriod.start, now)}</TimeLabel>
+          <TimeLabel>{toTimeString(duration(now - activePeriod.start), true)}</TimeLabel>
           <StartTimeLabel>Started @ {format(activePeriod.start, 'h:mm aa')}</StartTimeLabel>
         </Fragment>
       ) : (
