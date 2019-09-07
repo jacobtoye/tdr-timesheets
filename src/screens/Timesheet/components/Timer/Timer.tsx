@@ -49,7 +49,7 @@ export const Timer: React.FC<{}> = () => {
 
   const onClick = () => {
     if (activePeriod) {
-      endPeriod(activePeriod.id);
+      endPeriod();
       return;
     }
 

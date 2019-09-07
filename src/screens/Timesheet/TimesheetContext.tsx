@@ -9,19 +9,19 @@ export interface ActiveTimeRecord {
 export interface TimePeriod {
   id: number;
   start: number;
-  end?: number;
+  end: number;
+  type: TimePeriodType;
 }
 
 interface TimesheetState {
-  activePeriod?: TimePeriod;
-  timePeriods: Record<number, TimePeriod>;
   activePeriod?: ActiveTimeRecord;
+  timePeriods: TimePeriod[];
 }
 
 interface TimesheetContext {
   timesheetState: TimesheetState;
   startPeriod: () => void;
-  endPeriod: (id: number) => void;
+  endPeriod: () => void;
   deletePeriod: (id: number) => void;
 }
 
@@ -47,9 +47,9 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
     }
 
     const now = Date.now();
-    const newPeriod: TimePeriod = {
-      id: now, // TODO: will need to fix when hook up server comms (will be the DB id)
+    const newPeriod: ActiveTimeRecord = {
       start: now,
+      type: TimePeriodType.Normal,
     };
 
     // TODO: is there a nicer way of setting state, if this got big would be a pain to manage.
@@ -60,10 +60,8 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
     });
   };
 
-  const endPeriod = (id: number) => {
-    // TODO: currently only support ending the active period. Should change to also suppoprt editing
-    // the time periods too
-    if (timesheetState.activePeriod && timesheetState.activePeriod.id === id) {
+  const endPeriod = () => {
+    if (timesheetState.activePeriod) {
       // TODO: implement actually adding to the timePeriods
       setTimesheetState({
         activePeriod: undefined,
@@ -73,14 +71,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
   };
 
   const deletePeriod = (id: number) => {
-    if (timesheetState.activePeriod && timesheetState.activePeriod.id === id) {
-      setTimesheetState({
-        activePeriod: undefined,
-        timePeriods: timesheetState.timePeriods,
-      });
-    } else if (timesheetState.timePeriods[id]) {
-      // TODO: delete from the dictionary
-    }
+    // TODO: delete from the dictionary
   };
 
   return (

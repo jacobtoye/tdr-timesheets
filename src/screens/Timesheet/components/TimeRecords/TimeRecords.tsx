@@ -4,6 +4,7 @@ import { CenteredContent } from 'components';
 import { theme } from 'utils/theme';
 import { TimeRecord } from './TimeRecord';
 import TimePeriodType from 'models/TimePeriodType';
+import { useTimesheetContext, TimePeriod } from 'screens/Timesheet/TimesheetContext';
 
 const TimeRecordsContainer = styled('div')``;
 
@@ -22,13 +23,22 @@ const TimeRecordContainer = styled('div')`
 `;
 
 export const TimeRecords: React.FC<{}> = () => {
+  const { timesheetState } = useTimesheetContext();
+
   return (
     <TimeRecordsContainer>
       <DayHeading>
         Today -&nbsp;<strong>7:52</strong>
       </DayHeading>
       <TimeRecordContainer>
-        <TimeRecord startTime={1567632854991} endTime={1567643674338} type={TimePeriodType.Normal} />
+        {timesheetState.timePeriods.map((timePeriod: TimePeriod) => (
+          <TimeRecord
+            key={timePeriod.id}
+            startTime={timePeriod.start}
+            endTime={timePeriod.end}
+            type={timePeriod.type}
+          />
+        ))}
       </TimeRecordContainer>
     </TimeRecordsContainer>
   );
