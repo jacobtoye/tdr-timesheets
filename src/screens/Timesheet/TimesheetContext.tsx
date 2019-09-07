@@ -1,4 +1,7 @@
 import * as React from 'react';
+import addDays from 'date-fns/addDays';
+import setHours from 'date-fns/setHours';
+import setMinutes from 'date-fns/setMinutes';
 import TimePeriodType from 'models/TimePeriodType';
 
 export interface ActiveTimeRecord {
@@ -25,56 +28,59 @@ interface TimesheetContext {
   deletePeriod: (id: number) => void;
 }
 
+const today = new Date();
+const days = [today, addDays(today, -1), addDays(today, -2), addDays(today, -3), addDays(today, -4)];
+
 const initialState: TimesheetState = {
   activePeriod: undefined,
   timePeriods: {
     '2019-09-06': [
       {
         id: 5,
-        start: 1567717200000,
-        end: 1567731600000,
+        start: setMinutes(setHours(days[0], 9), 0).getTime(),
+        end: setMinutes(setHours(days[0], 13), 0).getTime(),
         type: TimePeriodType.Normal,
       },
       {
         id: 6,
-        start: 1567733400000,
-        end: 1567750500000,
+        start: setMinutes(setHours(days[1], 13), 30).getTime(),
+        end: setMinutes(setHours(days[1], 18), 15).getTime(),
         type: TimePeriodType.Normal,
       },
     ],
     '2019-09-05': [
       {
         id: 3,
-        start: 1567634400000,
-        end: 1567645200000,
+        start: setMinutes(setHours(days[2], 10), 0).getTime(),
+        end: setMinutes(setHours(days[2], 13), 0).getTime(),
         type: TimePeriodType.Sick,
       },
       {
         id: 4,
-        start: 1567647000000,
-        end: 1567664100000,
+        start: setMinutes(setHours(days[2], 13), 30).getTime(),
+        end: setMinutes(setHours(days[2], 18), 15).getTime(),
         type: TimePeriodType.Sick,
       },
     ],
     '2019-09-04': [
       {
         id: 2,
-        start: 1567558800000,
-        end: 1567584900000,
+        start: setMinutes(setHours(days[3], 13), 0).getTime(),
+        end: setMinutes(setHours(days[3], 20), 15).getTime(),
         type: TimePeriodType.Training,
       },
     ],
     '2019-09-03': [
       {
         id: 0,
-        start: 1567457100000,
-        end: 1567472400000,
+        start: setMinutes(setHours(days[4], 8), 45).getTime(),
+        end: setMinutes(setHours(days[4], 13), 0).getTime(),
         type: TimePeriodType.Normal,
       },
       {
         id: 1,
-        start: 1567474200000,
-        end: 1567482300000,
+        start: setMinutes(setHours(days[4], 13), 30).getTime(),
+        end: setMinutes(setHours(days[4], 15), 45).getTime(),
         type: TimePeriodType.Normal,
       },
     ],
