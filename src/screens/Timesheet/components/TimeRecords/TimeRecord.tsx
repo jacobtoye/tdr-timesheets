@@ -4,6 +4,7 @@ import format from 'date-fns/format';
 import TimePeriodType from 'models/TimePeriodType';
 import { theme } from 'utils/theme';
 import { PeriodTypeIcon } from './PeriodTypeIcon';
+import { toTimeString, duration } from 'utils/time';
 
 const TimeRecordWrapper = styled('div')`
   align-items: center;
@@ -45,7 +46,7 @@ export const TimeRecord: React.FC<TimeRecordProps> = ({ startTime, endTime, type
       <TimePeriod>
         {format(startTime, 'h:mm aa')} - {format(endTime, 'h:mm aa')}
       </TimePeriod>
-      <TimePeriodTotal>5:21 (TODO)</TimePeriodTotal>
+      <TimePeriodTotal>{toTimeString(duration(endTime - startTime))}</TimePeriodTotal>
     </TimeRecordWrapper>
   );
 };
