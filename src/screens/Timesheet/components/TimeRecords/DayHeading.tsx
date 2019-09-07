@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import format from 'date-fns/format';
+import { isToday, isYesterday } from 'date-fns/esm';
 import { TimePeriod } from 'screens/Timesheet/TimesheetContext';
 import { CenteredContent } from 'components';
 import { theme } from 'utils/theme';
@@ -15,6 +16,25 @@ const DayHeadingWrapper = styled(CenteredContent)`
   width: 100%;
 `;
 
+const calculatePeriodsTotal = (periods: TimePeriod[]) => {
+  let total = 0;
+  periods.forEach((period: TimePeriod) => {
+    total += period.end - period.start;
+  });
+
+  return total;
+};
+
+const getDayText = (date: number) => {
+  if (isToday(date)) {
+    return 'Today';
+  } else if (isYesterday(date)) {
+    return 'Yesterday';
+  }
+
+  return format(date, 'EEE, dd MMM');
+};
+
 interface DayHeadingProps {
   periods: TimePeriod[];
 }
@@ -24,14 +44,11 @@ export const DayHeading: React.FC<DayHeadingProps> = ({ periods }: DayHeadingPro
     return null;
   }
 
-  let total = 0;
-  periods.forEach((period: TimePeriod) => {
-    total += period.end - period.start;
-  });
+  const totalDuration = duration(calculatePeriodsTotal(periods));
 
   return (
     <DayHeadingWrapper>
-      {format(periods[0].start, 'EEE, dd MMM')} -&nbsp;<strong>{toTimeString(duration(total))}</strong>
+      {getDayText(periods[0].start)} -&nbsp;<strong>{toTimeString(totalDuration)}</strong>
     </DayHeadingWrapper>
   );
 };
