@@ -1,21 +1,11 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
-import { CenteredContent } from 'components';
 import { theme } from 'utils/theme';
 import { TimeRecord } from './TimeRecord';
-import TimePeriodType from 'models/TimePeriodType';
 import { useTimesheetContext, TimePeriod } from 'screens/Timesheet/TimesheetContext';
+import { DayHeading } from './DayHeading';
 
 const TimeRecordsContainer = styled('div')``;
-
-const DayHeading = styled(CenteredContent)`
-  border-bottom: 1px solid ${theme.palette.GREY};
-  color: ${theme.palette.text.SECONDARY};
-  flex-direction: initial;
-  font-size: ${theme.text.body2}px;
-  height: ${theme.grid.BASELINE * 9}px;
-  width: 100%;
-`;
 
 const TimeRecordContainer = styled('div')`
   border-bottom: 1px solid ${theme.palette.GREY};
@@ -27,19 +17,23 @@ export const TimeRecords: React.FC<{}> = () => {
 
   return (
     <TimeRecordsContainer>
-      <DayHeading>
-        Today -&nbsp;<strong>7:52</strong>
-      </DayHeading>
-      <TimeRecordContainer>
-        {timesheetState.timePeriods.map((timePeriod: TimePeriod) => (
-          <TimeRecord
-            key={timePeriod.id}
-            startTime={timePeriod.start}
-            endTime={timePeriod.end}
-            type={timePeriod.type}
-          />
-        ))}
-      </TimeRecordContainer>
+      {Object.keys(timesheetState.timePeriods).map((key: string) => {
+        return (
+          <React.Fragment key={key}>
+            <DayHeading periods={timesheetState.timePeriods[key]} />
+            <TimeRecordContainer>
+              {timesheetState.timePeriods[key].map((timePeriod: TimePeriod) => (
+                <TimeRecord
+                  key={timePeriod.id}
+                  startTime={timePeriod.start}
+                  endTime={timePeriod.end}
+                  type={timePeriod.type}
+                />
+              ))}
+            </TimeRecordContainer>
+          </React.Fragment>
+        );
+      })}
     </TimeRecordsContainer>
   );
 };
