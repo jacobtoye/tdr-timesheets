@@ -12,7 +12,7 @@ export const Total = styled<'div', TotalProps>('div')`
   border-bottom: 4px solid;
   border-bottom-color: ${(props: TotalProps) => timePeriodTypeAsColor(props.timePeriodType)};
   color: ${theme.palette.text.GREY};
-  display: flex;
+  display: ${(props: TotalProps) => (props.percent > 0 ? 'flex' : 'none')};
   font-size: ${theme.text.overline.SIZE}px;
   height: ${theme.grid.BASELINE * 5}px;
   margin-bottom: 3px;
