@@ -20,6 +20,7 @@ export interface TimeRecord {
 export interface DayRecord {
   periods: TimeRecord[];
   durationInMilliseconds: number;
+  timePeriodTypeTotals: Record<TimePeriodType, number>;
 }
 
 interface TimesheetState {
@@ -89,12 +90,22 @@ const processPeriods = (periods: TimeRecord[]) => {
       map[key] = {
         periods: [],
         durationInMilliseconds: 0,
+        timePeriodTypeTotals: {
+          [TimePeriodType.Normal]: 0,
+          [TimePeriodType.AnnualLeave]: 0,
+          [TimePeriodType.Sick]: 0,
+          [TimePeriodType.Training]: 0,
+          [TimePeriodType.Stat]: 0,
+        },
       };
     }
 
     // TODO: sort
     map[key].periods.push(period);
-    map[key].durationInMilliseconds += period.end - period.start;
+
+    const duration = period.end - period.start;
+    map[key].durationInMilliseconds += duration;
+    map[key].timePeriodTypeTotals[period.type] += duration;
 
     return map;
   }, {});
