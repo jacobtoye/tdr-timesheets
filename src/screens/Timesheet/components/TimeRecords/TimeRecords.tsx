@@ -22,9 +22,9 @@ export const TimeRecords: React.FC<{}> = () => {
       {Object.keys(timesheetState.timePeriods).map((key: string) => {
         return (
           <React.Fragment key={key}>
-            <DayHeading periods={timesheetState.timePeriods[key]} />
+            <DayHeading day={timesheetState.timePeriods[key]} />
             <TimeRecordContainer>
-              {timesheetState.timePeriods[key].map((timePeriod: TimePeriod) => (
+              {timesheetState.timePeriods[key].periods.map((timePeriod: TimePeriod) => (
                 <TimeRecord
                   key={timePeriod.id}
                   startTime={timePeriod.start}

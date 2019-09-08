@@ -1,4 +1,5 @@
 import * as React from 'react';
+import format from 'date-fns/format';
 import addDays from 'date-fns/addDays';
 import setHours from 'date-fns/setHours';
 import setMinutes from 'date-fns/setMinutes';
@@ -16,9 +17,14 @@ export interface TimePeriod {
   type: TimePeriodType;
 }
 
+export interface DayRecord {
+  periods: TimePeriod[];
+  durationInMilliseconds: number;
+}
+
 interface TimesheetState {
   activePeriod?: ActiveTimeRecord;
-  timePeriods: Record<string, TimePeriod[]>;
+  timePeriods: Record<string, DayRecord>;
 }
 
 interface TimesheetContext {
@@ -30,61 +36,73 @@ interface TimesheetContext {
 
 const today = new Date();
 const days = [today, addDays(today, -1), addDays(today, -2), addDays(today, -3), addDays(today, -4)];
+const initialPeriods = [
+  {
+    id: 5,
+    start: setMinutes(setHours(days[0], 9), 0).getTime(),
+    end: setMinutes(setHours(days[0], 13), 0).getTime(),
+    type: TimePeriodType.Normal,
+  },
+  {
+    id: 6,
+    start: setMinutes(setHours(days[0], 13), 30).getTime(),
+    end: setMinutes(setHours(days[0], 18), 15).getTime(),
+    type: TimePeriodType.Normal,
+  },
+  {
+    id: 3,
+    start: setMinutes(setHours(days[1], 10), 0).getTime(),
+    end: setMinutes(setHours(days[1], 13), 0).getTime(),
+    type: TimePeriodType.Sick,
+  },
+  {
+    id: 4,
+    start: setMinutes(setHours(days[1], 13), 30).getTime(),
+    end: setMinutes(setHours(days[1], 18), 15).getTime(),
+    type: TimePeriodType.Sick,
+  },
+  {
+    id: 2,
+    start: setMinutes(setHours(days[3], 13), 0).getTime(),
+    end: setMinutes(setHours(days[3], 20), 15).getTime(),
+    type: TimePeriodType.Training,
+  },
+  {
+    id: 0,
+    start: setMinutes(setHours(days[4], 8), 45).getTime(),
+    end: setMinutes(setHours(days[4], 13), 0).getTime(),
+    type: TimePeriodType.Normal,
+  },
+  {
+    id: 1,
+    start: setMinutes(setHours(days[4], 13), 30).getTime(),
+    end: setMinutes(setHours(days[4], 15), 45).getTime(),
+    type: TimePeriodType.Normal,
+  },
+];
+
+const processPeriods = (periods: TimePeriod[]) => {
+  return periods.reduce((map: Record<string, DayRecord>, period: TimePeriod) => {
+    const key = format(period.start, 'yyyy-MM-dd');
+
+    if (!map[key]) {
+      map[key] = {
+        periods: [],
+        durationInMilliseconds: 0,
+      };
+    }
+
+    // TODO: sort
+    map[key].periods.push(period);
+    map[key].durationInMilliseconds += period.end - period.start;
+
+    return map;
+  }, {});
+};
 
 const initialState: TimesheetState = {
   activePeriod: undefined,
-  timePeriods: {
-    '2019-09-06': [
-      {
-        id: 5,
-        start: setMinutes(setHours(days[0], 9), 0).getTime(),
-        end: setMinutes(setHours(days[0], 13), 0).getTime(),
-        type: TimePeriodType.Normal,
-      },
-      {
-        id: 6,
-        start: setMinutes(setHours(days[0], 13), 30).getTime(),
-        end: setMinutes(setHours(days[0], 18), 15).getTime(),
-        type: TimePeriodType.Normal,
-      },
-    ],
-    '2019-09-05': [
-      {
-        id: 3,
-        start: setMinutes(setHours(days[1], 10), 0).getTime(),
-        end: setMinutes(setHours(days[1], 13), 0).getTime(),
-        type: TimePeriodType.Sick,
-      },
-      {
-        id: 4,
-        start: setMinutes(setHours(days[1], 13), 30).getTime(),
-        end: setMinutes(setHours(days[1], 18), 15).getTime(),
-        type: TimePeriodType.Sick,
-      },
-    ],
-    '2019-09-04': [
-      {
-        id: 2,
-        start: setMinutes(setHours(days[3], 13), 0).getTime(),
-        end: setMinutes(setHours(days[3], 20), 15).getTime(),
-        type: TimePeriodType.Training,
-      },
-    ],
-    '2019-09-03': [
-      {
-        id: 0,
-        start: setMinutes(setHours(days[4], 8), 45).getTime(),
-        end: setMinutes(setHours(days[4], 13), 0).getTime(),
-        type: TimePeriodType.Normal,
-      },
-      {
-        id: 1,
-        start: setMinutes(setHours(days[4], 13), 30).getTime(),
-        end: setMinutes(setHours(days[4], 15), 45).getTime(),
-        type: TimePeriodType.Normal,
-      },
-    ],
-  },
+  timePeriods: processPeriods(initialPeriods),
 };
 
 export const TimesheetContext = React.createContext<TimesheetContext>({
