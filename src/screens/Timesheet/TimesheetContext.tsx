@@ -10,7 +10,7 @@ export interface ActiveTimeRecord {
   type: TimePeriodType;
 }
 
-export interface TimePeriod {
+export interface TimeRecord {
   id: number;
   start: number;
   end: number;
@@ -18,7 +18,7 @@ export interface TimePeriod {
 }
 
 export interface DayRecord {
-  periods: TimePeriod[];
+  periods: TimeRecord[];
   durationInMilliseconds: number;
 }
 
@@ -81,8 +81,8 @@ const initialPeriods = [
   },
 ];
 
-const processPeriods = (periods: TimePeriod[]) => {
-  return periods.reduce((map: Record<string, DayRecord>, period: TimePeriod) => {
+const processPeriods = (periods: TimeRecord[]) => {
+  return periods.reduce((map: Record<string, DayRecord>, period: TimeRecord) => {
     const key = format(period.start, 'yyyy-MM-dd');
 
     if (!map[key]) {

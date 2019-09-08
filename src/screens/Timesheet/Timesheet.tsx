@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { FaTrashAlt, FaBars } from 'react-icons/fa';
-import { PeriodTotals, Timer, TimeRecords } from './components';
+import { PeriodTotals, Timer, TimeRecordsList } from './components';
 import { BaseScreen, CenteredContent } from 'components';
 import { theme } from 'utils/theme';
 
@@ -39,7 +39,7 @@ export const TimesheetScreen: React.FC<{}> = () => {
       </HeaderContainer>
       <Timer />
       <PeriodTotals />
-      <TimeRecords />
+      <TimeRecordsList />
     </BaseScreen>
   );
 };

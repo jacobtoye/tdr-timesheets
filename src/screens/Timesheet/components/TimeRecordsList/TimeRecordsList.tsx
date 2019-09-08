@@ -1,8 +1,8 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import { theme } from 'utils/theme';
-import { TimeRecord } from './TimeRecord';
-import { useTimesheetContext, TimePeriod } from 'screens/Timesheet/TimesheetContext';
+import { TimeRecordListItem } from './TimeRecordListItem';
+import { useTimesheetContext, TimeRecord } from 'screens/Timesheet/TimesheetContext';
 import { DayHeading } from './DayHeading';
 
 const TimeRecordsContainer = styled('div')`
@@ -14,7 +14,7 @@ const TimeRecordContainer = styled('div')`
   padding: ${theme.grid.BASELINE * 3}px 0;
 `;
 
-export const TimeRecords: React.FC<{}> = () => {
+export const TimeRecordsList: React.FC<{}> = () => {
   const { timesheetState } = useTimesheetContext();
 
   return (
@@ -24,8 +24,8 @@ export const TimeRecords: React.FC<{}> = () => {
           <React.Fragment key={key}>
             <DayHeading day={timesheetState.timePeriods[key]} />
             <TimeRecordContainer>
-              {timesheetState.timePeriods[key].periods.map((timePeriod: TimePeriod) => (
-                <TimeRecord
+              {timesheetState.timePeriods[key].periods.map((timePeriod: TimeRecord) => (
+                <TimeRecordListItem
                   key={timePeriod.id}
                   startTime={timePeriod.start}
                   endTime={timePeriod.end}

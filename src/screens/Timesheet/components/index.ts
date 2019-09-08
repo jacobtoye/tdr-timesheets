@@ -1,5 +1,5 @@
 import { PeriodTotals } from './PeriodTotals';
 import { Timer } from './Timer';
-import { TimeRecords } from './TimeRecords';
+import { TimeRecordsList } from './TimeRecordsList';
 
-export { PeriodTotals, Timer, TimeRecords };
+export { PeriodTotals, Timer, TimeRecordsList };

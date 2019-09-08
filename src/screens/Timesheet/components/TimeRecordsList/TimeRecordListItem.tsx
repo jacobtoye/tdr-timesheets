@@ -39,7 +39,7 @@ interface TimeRecordProps {
   type: TimePeriodType;
 }
 
-export const TimeRecord: React.FC<TimeRecordProps> = ({ startTime, endTime, type }: TimeRecordProps) => {
+export const TimeRecordListItem: React.FC<TimeRecordProps> = ({ startTime, endTime, type }: TimeRecordProps) => {
   return (
     <TimeRecordWrapper>
       <PeriodTypeIcon type={type} />
