@@ -84,10 +84,10 @@ const initialPeriods = [
 
 const processPeriods = (periods: TimeRecord[]) => {
   return periods.reduce((map: Record<string, DayRecord>, period: TimeRecord) => {
-    const key = format(period.start, 'yyyy-MM-dd');
+    const date = format(period.start, 'yyyy-MM-dd');
 
-    if (!map[key]) {
-      map[key] = {
+    if (!map[date]) {
+      map[date] = {
         periods: [],
         durationInMilliseconds: 0,
         timePeriodTypeTotals: {
@@ -101,11 +101,11 @@ const processPeriods = (periods: TimeRecord[]) => {
     }
 
     // TODO: sort
-    map[key].periods.push(period);
+    map[date].periods.push(period);
 
     const duration = period.end - period.start;
-    map[key].durationInMilliseconds += duration;
-    map[key].timePeriodTypeTotals[period.type] += duration;
+    map[date].durationInMilliseconds += duration;
+    map[date].timePeriodTypeTotals[period.type] += duration;
 
     return map;
   }, {});
