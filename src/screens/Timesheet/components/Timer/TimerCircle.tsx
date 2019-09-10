@@ -3,7 +3,7 @@ import { keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import { CenteredContent } from 'components';
 import { theme } from 'utils/theme';
-import { ActiveTimeRecord } from 'screens/Timesheet/TimesheetContext';
+import { ActiveTimeRecord } from 'contexts/TimesheetContext/TimesheetContext';
 import useInterval from 'hooks/useInterval';
 import format from 'date-fns/esm/format';
 import { duration, toTimeString } from 'utils/time';

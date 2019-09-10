@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import TimePeriodType from 'models/TimePeriodType';
 import { Total } from './Total';
 import { theme } from 'utils/theme';
-import { useTimesheetContext } from 'screens/Timesheet/TimesheetContext';
+import { useTimesheetContext } from 'contexts/TimesheetContext';
 import { toTimeString, duration } from 'utils/time';
 
 const PeriodTotalsContainer = styled('div')``;

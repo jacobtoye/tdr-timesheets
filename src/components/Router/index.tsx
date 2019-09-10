@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
-import { useUserContext } from 'screens/Login/UserContext';
+import { useUserContext } from 'contexts/UserContext';
 import MainLayout from '../MainLayout';
 import { ANIMATION_FADE_CLASSNAME, Fade } from '../Fade';
 import { BonusScreen, LeaveScreen, LoginScreen, TimesheetScreen, TodosScreen } from 'screens';

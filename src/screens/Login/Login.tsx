@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { BaseScreen } from 'components';
 import { Logo } from './components/Logo';
-import { useUserContext } from './UserContext';
+import { useUserContext } from 'contexts/UserContext';
 import { History } from 'history';
 
 interface LogInProps {

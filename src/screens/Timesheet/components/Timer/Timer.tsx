@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import { FaPlay, FaStop } from 'react-icons/fa';
 import { CenteredContent } from 'components';
-import { useTimesheetContext } from '../../TimesheetContext';
+import { useTimesheetContext } from 'contexts/TimesheetContext';
 import { theme } from 'utils/theme';
 import { TimerCircle } from './TimerCircle';
 
