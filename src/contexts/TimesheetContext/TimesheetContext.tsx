@@ -30,9 +30,9 @@ interface TimesheetState {
 
 interface TimesheetContext {
   timesheetState: TimesheetState;
-  startPeriod: () => void;
-  endPeriod: () => void;
-  deletePeriod: (id: number) => void;
+  startActivePeriod: () => void;
+  endActivePeriod: () => void;
+  deleteActivePeriod: (id: number) => void;
 }
 
 const today = new Date();
@@ -118,46 +118,63 @@ const initialState: TimesheetState = {
 
 export const TimesheetContext = React.createContext<TimesheetContext>({
   timesheetState: initialState,
-  startPeriod: () => {},
-  endPeriod: () => {},
-  deletePeriod: () => {},
+  startActivePeriod: () => {},
+  endActivePeriod: () => {},
+  deleteActivePeriod: () => {},
 });
 
 export const TimesheetProvider: React.FC<{}> = ({ children }) => {
   const [timesheetState, setTimesheetState] = React.useState<TimesheetState>(initialState);
 
-  // TODO: need to separate out the active and the time periods
-  const startPeriod = () => {
+  const startActivePeriod = () => {
     if (timesheetState.activePeriod) {
       // TODO: error since can't start a new active period if one is active
       return;
     }
 
-    const now = Date.now();
-    const newPeriod: ActiveTimeRecord = {
-      start: now,
-      type: TimePeriodType.Normal,
-    };
-
-    // TODO: is there a nicer way of setting state, if this got big would be a pain to manage.
-    // really just want to set activePeriod here
     setTimesheetState({
-      activePeriod: newPeriod,
-      timePeriods: timesheetState.timePeriods,
+      ...timesheetState,
+      activePeriod: {
+        start: Date.now(),
+        type: TimePeriodType.Normal,
+      },
     });
   };
 
-  const endPeriod = () => {
-    if (timesheetState.activePeriod) {
-      // TODO: implement actually adding to the timePeriods
+  const endActivePeriod = () => {
+    const activePeriod = timesheetState.activePeriod;
+    if (activePeriod) {
+      const date = format(activePeriod.start, 'yyyy-MM-dd');
+      const now = Date.now();
+      const newTimeRecord = {
+        id: activePeriod.start,
+        start: activePeriod.start,
+        end: now,
+        type: TimePeriodType.Normal,
+      };
+      const duration = now - activePeriod.start;
+      const dayRecord = timesheetState.timePeriods[date];
+
       setTimesheetState({
         activePeriod: undefined,
-        timePeriods: timesheetState.timePeriods,
+        timePeriods: {
+          ...timesheetState.timePeriods,
+          [date]: {
+            // Add new TimeRecord to end, assuming this is sorted.
+            periods: [...timesheetState.timePeriods[date].periods, newTimeRecord],
+            // Update the duration values
+            durationInMilliseconds: dayRecord.durationInMilliseconds + duration,
+            timePeriodTypeTotals: {
+              ...dayRecord.timePeriodTypeTotals,
+              [newTimeRecord.type]: dayRecord.timePeriodTypeTotals[newTimeRecord.type] + duration,
+            },
+          },
+        },
       });
     }
   };
 
-  const deletePeriod = (id: number) => {
+  const deleteActivePeriod = (id: number) => {
     // TODO: delete from the dictionary
   };
 
@@ -165,9 +182,9 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
     <TimesheetContext.Provider
       value={{
         timesheetState,
-        startPeriod,
-        endPeriod,
-        deletePeriod,
+        startActivePeriod,
+        endActivePeriod,
+        deleteActivePeriod,
       }}
     >
       {children}
