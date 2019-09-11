@@ -10,6 +10,7 @@ const BaseScreen = styled('div')`
   min-height: 100vh;
   padding: 0 ${theme.grid.MARGIN}px;
   width: 100vw;
+  user-select: none;
 `;
 
 export default BaseScreen;
