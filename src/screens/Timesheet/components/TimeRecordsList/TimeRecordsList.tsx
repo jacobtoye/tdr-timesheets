@@ -24,12 +24,12 @@ export const TimeRecordsList: React.FC<{}> = () => {
   console.log(`render list ${Date.now()}`);
   return (
     <TimeRecordsContainer>
-      {Object.keys(timesheetState.timePeriods).map((key: string) => {
+      {Object.keys(timesheetState.dayRecords).map((key: string) => {
         return (
           <React.Fragment key={key}>
-            <DayHeading day={timesheetState.timePeriods[key]} />
+            <DayHeading day={timesheetState.dayRecords[key]} />
             <TimeRecordContainer>
-              {timesheetState.timePeriods[key].periods.map((timePeriod: TimeRecord) => (
+              {timesheetState.dayRecords[key].periods.map((timePeriod: TimeRecord) => (
                 <TimeRecordListItem
                   key={timePeriod.id}
                   id={timePeriod.id}

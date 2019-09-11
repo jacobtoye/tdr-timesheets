@@ -23,7 +23,7 @@ export interface DayRecord {
 
 interface TimesheetState {
   activePeriod?: ActiveTimeRecord;
-  timePeriods: Record<string, DayRecord>;
+  dayRecords: Record<string, DayRecord>;
 }
 
 interface TimesheetContext {
@@ -111,7 +111,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
         type: TimePeriodType.Normal,
       };
       const duration = now - activePeriod.start;
-      let dayRecord: DayRecord = timesheetState.timePeriods[date];
+      let dayRecord: DayRecord = timesheetState.dayRecords[date];
 
       if (!dayRecord) {
         dayRecord = emptyDayRecord();
@@ -119,8 +119,8 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
 
       setTimesheetState({
         activePeriod: undefined,
-        timePeriods: {
-          ...timesheetState.timePeriods,
+        dayRecords: {
+          ...timesheetState.dayRecords,
           [date]: {
             // Add new TimeRecord to end, assuming this is sorted.
             periods: [...dayRecord.periods, newTimeRecord],
@@ -141,7 +141,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
   };
 
   const deletePeriod = (id: number, date: string) => {
-    const dayRecord: DayRecord = timesheetState.timePeriods[date];
+    const dayRecord: DayRecord = timesheetState.dayRecords[date];
 
     if (!dayRecord) {
       // TODO: error! the passed in date did not exist in the dictionary?
@@ -150,11 +150,11 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
 
     if (dayRecord.periods.length === 1 && dayRecord.periods[0].id === id) {
       // Uses object destructing to remove the DayRecord as the period we are deleting is the only period left for that day.
-      const { [date]: removed, ...remainingPeriods } = timesheetState.timePeriods;
+      const { [date]: removed, ...remainingPeriods } = timesheetState.dayRecords;
 
       setTimesheetState({
         ...timesheetState,
-        timePeriods: remainingPeriods,
+        dayRecords: remainingPeriods,
       });
 
       return;
@@ -162,7 +162,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
 
     let removedPeriod: TimeRecord | undefined;
     // Remove the period from the day. We use Array.filter() to ensure we don't mutate the existing periods array
-    const periods = timesheetState.timePeriods[date].periods.filter(period => {
+    const periods = timesheetState.dayRecords[date].periods.filter(period => {
       if (period.id === id) {
         removedPeriod = period;
         return false;
@@ -180,8 +180,8 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
 
     setTimesheetState({
       ...timesheetState,
-      timePeriods: {
-        ...timesheetState.timePeriods,
+      dayRecords: {
+        ...timesheetState.dayRecords,
         [date]: {
           periods,
           durationInMilliseconds: dayRecord.durationInMilliseconds - removedPeriodDuration,

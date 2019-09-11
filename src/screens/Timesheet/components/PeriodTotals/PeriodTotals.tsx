@@ -31,8 +31,8 @@ export const PeriodTotals: React.FC<{}> = () => {
     [TimePeriodType.Training]: 0,
     [TimePeriodType.Stat]: 0,
   };
-  Object.keys(timesheetState.timePeriods).forEach(key => {
-    const day = timesheetState.timePeriods[key];
+  Object.keys(timesheetState.dayRecords).forEach(key => {
+    const day = timesheetState.dayRecords[key];
     totalDuration += day.durationInMilliseconds;
 
     for (const [type, duration] of Object.entries(day.timePeriodTypeTotals)) {
