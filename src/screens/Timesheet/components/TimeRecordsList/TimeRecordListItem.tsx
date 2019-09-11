@@ -1,22 +1,25 @@
 import * as React from 'react';
 import styled from '@emotion/styled';
 import format from 'date-fns/format';
+import Swipeout from 'rc-swipeout';
 import TimePeriodType from 'models/TimePeriodType';
-import { theme } from 'utils/theme';
+import { theme, timePeriodTypeAsColor } from 'utils/theme';
 import { PeriodTypeIcon } from './PeriodTypeIcon';
 import { toTimeString, duration } from 'utils/time';
+import { DeleteButton } from './DeleteButton';
+import { EditButton } from './EditButton';
+
+// Need to do this so rc-swipeout workds :\
+import 'rc-swipeout/assets/index.css';
 
 const TimeRecordWrapper = styled('div')`
   align-items: center;
+  background-color: ${theme.palette.background.MAIN};
   display: grid;
   grid-gap: 0 ${theme.grid.GUTTER}px;
   grid-template-columns: ${theme.grid.COLUMN}px auto;
-  height: ${theme.grid.BASELINE * 6}px;
-  margin-bottom: ${theme.grid.BASELINE * 3}px;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
+  height: ${theme.grid.BASELINE * 8}px;
+  padding: ${theme.grid.BASELINE}px 0;
 `;
 
 const TimePeriod = styled('div')`
@@ -33,6 +36,7 @@ const TimePeriodTotal = styled('div')`
   line-height: ${theme.text.body2.LINE_HEIGHT}px;
 `;
 
+// TODO: should jsut pass in the TimeRecord
 interface TimeRecordProps {
   id: number;
   startTime: number;
@@ -53,12 +57,29 @@ export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
   };
 
   return (
-    <TimeRecordWrapper onClick={onDeleteClick}>
-      <PeriodTypeIcon type={type} />
-      <TimePeriod>
-        {format(startTime, 'h:mm aa')} - {format(endTime, 'h:mm aa')}
-      </TimePeriod>
-      <TimePeriodTotal>{toTimeString(duration(endTime - startTime))}</TimePeriodTotal>
-    </TimeRecordWrapper>
+    <Swipeout
+      style={{ marginBottom: `${theme.grid.BASELINE * 3}px` }}
+      autoClose
+      left={[
+        {
+          text: <EditButton color={timePeriodTypeAsColor(type)} />,
+          onPress: () => console.log('edit'),
+        },
+      ]}
+      right={[
+        {
+          text: <DeleteButton />,
+          onPress: onDeleteClick,
+        },
+      ]}
+    >
+      <TimeRecordWrapper>
+        <PeriodTypeIcon type={type} />
+        <TimePeriod>
+          {format(startTime, 'h:mm aa')} - {format(endTime, 'h:mm aa')}
+        </TimePeriod>
+        <TimePeriodTotal>{toTimeString(duration(endTime - startTime))}</TimePeriodTotal>
+      </TimeRecordWrapper>
+    </Swipeout>
   );
 };
