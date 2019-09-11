@@ -15,8 +15,8 @@ const TimeRecordContainer = styled('div')`
 `;
 
 export const TimeRecordsList: React.FC<{}> = () => {
-  const { timesheetState } = useTimesheetContext();
-
+  const { timesheetState, deletePeriod } = useTimesheetContext();
+  console.log(`render list ${Date.now()}`);
   return (
     <TimeRecordsContainer>
       {Object.keys(timesheetState.timePeriods).map((key: string) => {
@@ -27,9 +27,11 @@ export const TimeRecordsList: React.FC<{}> = () => {
               {timesheetState.timePeriods[key].periods.map((timePeriod: TimeRecord) => (
                 <TimeRecordListItem
                   key={timePeriod.id}
+                  id={timePeriod.id}
                   startTime={timePeriod.start}
                   endTime={timePeriod.end}
                   type={timePeriod.type}
+                  deletePeriod={deletePeriod}
                 />
               ))}
             </TimeRecordContainer>

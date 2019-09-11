@@ -30,72 +30,30 @@ interface TimesheetContext {
   timesheetState: TimesheetState;
   startActivePeriod: () => void;
   endActivePeriod: () => void;
-  deleteActivePeriod: (id: number) => void;
+  deleteActivePeriod: () => void;
+  deletePeriod: (id: number, date: string) => void;
 }
 
-const today = new Date();
-const days = [today, addDays(today, -1), addDays(today, -2), addDays(today, -3), addDays(today, -4)];
-const initialPeriods = [
-  {
-    id: 5,
-    start: setMinutes(setHours(days[0], 9), 0).getTime(),
-    end: setMinutes(setHours(days[0], 13), 0).getTime(),
-    type: TimePeriodType.Normal,
-  },
-  {
-    id: 6,
-    start: setMinutes(setHours(days[0], 13), 30).getTime(),
-    end: setMinutes(setHours(days[0], 18), 15).getTime(),
-    type: TimePeriodType.Normal,
-  },
-  {
-    id: 3,
-    start: setMinutes(setHours(days[1], 10), 0).getTime(),
-    end: setMinutes(setHours(days[1], 13), 0).getTime(),
-    type: TimePeriodType.Sick,
-  },
-  {
-    id: 4,
-    start: setMinutes(setHours(days[1], 13), 30).getTime(),
-    end: setMinutes(setHours(days[1], 18), 15).getTime(),
-    type: TimePeriodType.Sick,
-  },
-  {
-    id: 2,
-    start: setMinutes(setHours(days[3], 13), 0).getTime(),
-    end: setMinutes(setHours(days[3], 20), 15).getTime(),
-    type: TimePeriodType.Training,
-  },
-  {
-    id: 0,
-    start: setMinutes(setHours(days[4], 8), 45).getTime(),
-    end: setMinutes(setHours(days[4], 13), 0).getTime(),
-    type: TimePeriodType.Normal,
-  },
-  {
-    id: 1,
-    start: setMinutes(setHours(days[4], 13), 30).getTime(),
-    end: setMinutes(setHours(days[4], 15), 45).getTime(),
-    type: TimePeriodType.Normal,
-  },
-];
+const emptyDayRecord = (): DayRecord => {
+  return {
+    periods: [],
+    durationInMilliseconds: 0,
+    timePeriodTypeTotals: {
+      [TimePeriodType.Normal]: 0,
+      [TimePeriodType.AnnualLeave]: 0,
+      [TimePeriodType.Sick]: 0,
+      [TimePeriodType.Training]: 0,
+      [TimePeriodType.Stat]: 0,
+    },
+  } as DayRecord;
+};
 
 const processPeriods = (periods: TimeRecord[]) => {
   return periods.reduce((map: Record<string, DayRecord>, period: TimeRecord) => {
     const date = format(period.start, 'yyyy-MM-dd');
 
     if (!map[date]) {
-      map[date] = {
-        periods: [],
-        durationInMilliseconds: 0,
-        timePeriodTypeTotals: {
-          [TimePeriodType.Normal]: 0,
-          [TimePeriodType.AnnualLeave]: 0,
-          [TimePeriodType.Sick]: 0,
-          [TimePeriodType.Training]: 0,
-          [TimePeriodType.Stat]: 0,
-        },
-      };
+      map[date] = emptyDayRecord();
     }
 
     // TODO: sort
@@ -119,8 +77,10 @@ export const TimesheetContext = React.createContext<TimesheetContext>({
   startActivePeriod: () => {},
   endActivePeriod: () => {},
   deleteActivePeriod: () => {},
+  deletePeriod: () => {},
 });
 
+// TODO: the code in here could get big. Should move it out
 export const TimesheetProvider: React.FC<{}> = ({ children }) => {
   const [timesheetState, setTimesheetState] = React.useState<TimesheetState>(initialState);
 
@@ -151,7 +111,11 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
         type: TimePeriodType.Normal,
       };
       const duration = now - activePeriod.start;
-      const dayRecord = timesheetState.timePeriods[date];
+      let dayRecord: DayRecord = timesheetState.timePeriods[date];
+
+      if (!dayRecord) {
+        dayRecord = emptyDayRecord();
+      }
 
       setTimesheetState({
         activePeriod: undefined,
@@ -159,7 +123,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
           ...timesheetState.timePeriods,
           [date]: {
             // Add new TimeRecord to end, assuming this is sorted.
-            periods: [...timesheetState.timePeriods[date].periods, newTimeRecord],
+            periods: [...dayRecord.periods, newTimeRecord],
             // Update the duration values
             durationInMilliseconds: dayRecord.durationInMilliseconds + duration,
             timePeriodTypeTotals: {
@@ -172,8 +136,62 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
     }
   };
 
-  const deleteActivePeriod = (id: number) => {
+  const deleteActivePeriod = () => {
     // TODO: delete from the dictionary
+  };
+
+  const deletePeriod = (id: number, date: string) => {
+    const dayRecord: DayRecord = timesheetState.timePeriods[date];
+
+    if (!dayRecord) {
+      // TODO: error! the passed in date did not exist in the dictionary?
+      return;
+    }
+
+    if (dayRecord.periods.length === 1 && dayRecord.periods[0].id === id) {
+      // Uses object destructing to remove the DayRecord as the period we are deleting is the only period left for that day.
+      const { [date]: removed, ...remainingPeriods } = timesheetState.timePeriods;
+
+      setTimesheetState({
+        ...timesheetState,
+        timePeriods: remainingPeriods,
+      });
+
+      return;
+    }
+
+    let removedPeriod: TimeRecord | undefined;
+    // Remove the period from the day. We use Array.filter() to ensure we don't mutate the existing periods array
+    const periods = timesheetState.timePeriods[date].periods.filter(period => {
+      if (period.id === id) {
+        removedPeriod = period;
+        return false;
+      }
+
+      return true;
+    });
+
+    if (!removedPeriod) {
+      // TODO: error? this would be the case if the id or date were wrong
+      return;
+    }
+
+    const removedPeriodDuration = removedPeriod.end - removedPeriod.start;
+
+    setTimesheetState({
+      ...timesheetState,
+      timePeriods: {
+        ...timesheetState.timePeriods,
+        [date]: {
+          periods,
+          durationInMilliseconds: dayRecord.durationInMilliseconds - removedPeriodDuration,
+          timePeriodTypeTotals: {
+            ...dayRecord.timePeriodTypeTotals,
+            [removedPeriod.type]: dayRecord.timePeriodTypeTotals[removedPeriod.type] - removedPeriodDuration,
+          },
+        },
+      },
+    });
   };
 
   return (
@@ -183,6 +201,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
         startActivePeriod,
         endActivePeriod,
         deleteActivePeriod,
+        deletePeriod,
       }}
     >
       {children}

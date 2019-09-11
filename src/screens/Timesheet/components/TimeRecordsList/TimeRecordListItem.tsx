@@ -34,14 +34,26 @@ const TimePeriodTotal = styled('div')`
 `;
 
 interface TimeRecordProps {
+  id: number;
   startTime: number;
   endTime: number;
   type: TimePeriodType;
+  deletePeriod: (id: number, date: string) => void;
 }
 
-export const TimeRecordListItem: React.FC<TimeRecordProps> = ({ startTime, endTime, type }: TimeRecordProps) => {
+export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
+  id,
+  startTime,
+  endTime,
+  type,
+  deletePeriod,
+}: TimeRecordProps) => {
+  const onDeleteClick = () => {
+    deletePeriod(id, format(startTime, 'yyyy-MM-dd'));
+  };
+
   return (
-    <TimeRecordWrapper>
+    <TimeRecordWrapper onClick={onDeleteClick}>
       <PeriodTypeIcon type={type} />
       <TimePeriod>
         {format(startTime, 'h:mm aa')} - {format(endTime, 'h:mm aa')}
