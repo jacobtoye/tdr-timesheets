@@ -48,8 +48,22 @@ const emptyDayRecord = (): DayRecord => {
   } as DayRecord;
 };
 
-const processPeriods = (periods: TimeRecord[]) => {
-  return periods.reduce((map: Record<string, DayRecord>, period: TimeRecord) => {
+const sortPeriods = (periods: TimeRecord[], isAscending = true): TimeRecord[] => {
+  const modifier = isAscending ? 1 : -1;
+
+  return periods.sort((a, b) => {
+    if (a.start < b.start) {
+      return -1 * modifier;
+    } else if (a.start > b.start) {
+      return 1 * modifier;
+    }
+
+    return 0;
+  });
+};
+
+const separateByDays = (periods: TimeRecord[]): Record<string, DayRecord> => {
+  const dayRecords = sortPeriods([...periods], false).reduce((map: Record<string, DayRecord>, period: TimeRecord) => {
     const date = format(period.start, 'yyyy-MM-dd');
 
     if (!map[date]) {
@@ -65,11 +79,18 @@ const processPeriods = (periods: TimeRecord[]) => {
 
     return map;
   }, {});
+
+  // sort each day's periods so the appear in an obvious order
+  Object.keys(dayRecords).forEach(key => {
+    dayRecords[key].periods = sortPeriods(dayRecords[key].periods);
+  });
+
+  return dayRecords;
 };
 
 const initialState: TimesheetState = {
   activePeriod: undefined,
-  timePeriods: processPeriods(dummyPeriods),
+  dayRecords: separateByDays(dummyPeriods),
 };
 
 export const TimesheetContext = React.createContext<TimesheetContext>({
