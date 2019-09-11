@@ -43,7 +43,7 @@ export const PeriodTotals: React.FC<{}> = () => {
   return (
     <PeriodTotalsContainer>
       <TotalHeader>
-        Fortnight: <strong>{toTimeString(duration(totalDuration))}</strong>
+        This period: <strong>{toTimeString(duration(totalDuration), true)}</strong>
       </TotalHeader>
       <Totals>
         {Object.entries(timePeriodTypeTotals).map(([type, duration]) => (
