@@ -1,9 +1,7 @@
 import * as React from 'react';
 import format from 'date-fns/format';
-import addDays from 'date-fns/addDays';
-import setHours from 'date-fns/setHours';
-import setMinutes from 'date-fns/setMinutes';
 import TimePeriodType from 'models/TimePeriodType';
+import { dummyPeriods } from './dummyPeriods';
 
 export interface ActiveTimeRecord {
   start: number;
@@ -113,7 +111,7 @@ const processPeriods = (periods: TimeRecord[]) => {
 
 const initialState: TimesheetState = {
   activePeriod: undefined,
-  timePeriods: processPeriods(initialPeriods),
+  timePeriods: processPeriods(dummyPeriods),
 };
 
 export const TimesheetContext = React.createContext<TimesheetContext>({
