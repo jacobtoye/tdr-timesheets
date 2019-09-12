@@ -29,10 +29,10 @@ interface TimesheetState {
 
 interface TimesheetContext {
   timesheetState: TimesheetState;
-  startActivePeriod: () => void;
-  endActivePeriod: () => void;
-  deleteActivePeriod: () => void;
-  deletePeriod: (id: number) => void;
+  startActiveRecord: () => void;
+  endActiveRecord: () => void;
+  deleteActiveRecord: () => void;
+  deleteRecord: (id: number) => void;
 }
 
 const emptyDayRecord = (): DayRecord => {
@@ -95,10 +95,10 @@ const initialState: TimesheetState = {
 
 export const TimesheetContext = React.createContext<TimesheetContext>({
   timesheetState: initialState,
-  startActivePeriod: () => {},
-  endActivePeriod: () => {},
-  deleteActivePeriod: () => {},
-  deletePeriod: () => {},
+  startActiveRecord: () => {},
+  endActiveRecord: () => {},
+  deleteActiveRecord: () => {},
+  deleteRecord: () => {},
 });
 
 // TODO: the code in here could get big. Should move it out
@@ -164,10 +164,10 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
     <TimesheetContext.Provider
       value={{
         timesheetState,
-        startActivePeriod,
-        endActivePeriod,
-        deleteActivePeriod,
-        deletePeriod,
+        startActiveRecord: startActivePeriod,
+        endActiveRecord: endActivePeriod,
+        deleteActiveRecord: deleteActivePeriod,
+        deleteRecord: deletePeriod,
       }}
     >
       {children}

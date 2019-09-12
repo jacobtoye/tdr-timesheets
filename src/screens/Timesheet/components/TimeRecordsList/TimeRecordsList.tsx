@@ -20,7 +20,7 @@ const TimeRecordContainer = styled('div')`
 `;
 
 export const TimeRecordsList: React.FC<{}> = () => {
-  const { timesheetState, deletePeriod } = useTimesheetContext();
+  const { timesheetState, deleteRecord: deletePeriod } = useTimesheetContext();
   console.log(`render list ${Date.now()}`);
   return (
     <TimeRecordsContainer>

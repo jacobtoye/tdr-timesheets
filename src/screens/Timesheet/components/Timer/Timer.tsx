@@ -38,7 +38,7 @@ const StartIcon = styled(FaPlay)`
 `;
 
 export const Timer: React.FC<{}> = () => {
-  const { timesheetState, startActivePeriod, endActivePeriod } = useTimesheetContext();
+  const { timesheetState, startActiveRecord: startActivePeriod, endActiveRecord: endActivePeriod } = useTimesheetContext();
   const activePeriod = timesheetState.activeRecord;
 
   const onClick = () => {
