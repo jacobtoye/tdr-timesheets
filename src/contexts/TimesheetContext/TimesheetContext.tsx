@@ -24,6 +24,7 @@ export interface DayRecord {
 interface TimesheetState {
   activePeriod?: ActiveTimeRecord;
   dayRecords: Record<string, DayRecord>;
+  timeRecords: TimeRecord[];
 }
 
 interface TimesheetContext {
@@ -31,7 +32,7 @@ interface TimesheetContext {
   startActivePeriod: () => void;
   endActivePeriod: () => void;
   deleteActivePeriod: () => void;
-  deletePeriod: (id: number, date: string) => void;
+  deletePeriod: (id: number) => void;
 }
 
 const emptyDayRecord = (): DayRecord => {
@@ -91,6 +92,7 @@ const separateByDays = (periods: TimeRecord[]): Record<string, DayRecord> => {
 const initialState: TimesheetState = {
   activePeriod: undefined,
   dayRecords: separateByDays(dummyPeriods),
+  timeRecords: dummyPeriods,
 };
 
 export const TimesheetContext = React.createContext<TimesheetContext>({
@@ -123,36 +125,19 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
   const endActivePeriod = () => {
     const activePeriod = timesheetState.activePeriod;
     if (activePeriod) {
-      const date = format(activePeriod.start, 'yyyy-MM-dd');
-      const now = Date.now();
       const newTimeRecord = {
         id: activePeriod.start,
         start: activePeriod.start,
-        end: now,
+        end: Date.now(),
         type: TimePeriodType.Normal,
       };
-      const duration = now - activePeriod.start;
-      let dayRecord: DayRecord = timesheetState.dayRecords[date];
 
-      if (!dayRecord) {
-        dayRecord = emptyDayRecord();
-      }
+      const timeRecords = [...timesheetState.timeRecords, newTimeRecord];
 
       setTimesheetState({
         activePeriod: undefined,
-        dayRecords: {
-          ...timesheetState.dayRecords,
-          [date]: {
-            // Add new TimeRecord to end, assuming this is sorted.
-            periods: [...dayRecord.periods, newTimeRecord],
-            // Update the duration values
-            durationInMilliseconds: dayRecord.durationInMilliseconds + duration,
-            timePeriodTypeTotals: {
-              ...dayRecord.timePeriodTypeTotals,
-              [newTimeRecord.type]: dayRecord.timePeriodTypeTotals[newTimeRecord.type] + duration,
-            },
-          },
-        },
+        dayRecords: separateByDays(timeRecords),
+        timeRecords,
       });
     }
   };
@@ -161,57 +146,19 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
     // TODO: delete from the dictionary
   };
 
-  const deletePeriod = (id: number, date: string) => {
-    const dayRecord: DayRecord = timesheetState.dayRecords[date];
-
-    if (!dayRecord) {
-      // TODO: error! the passed in date did not exist in the dictionary?
-      return;
-    }
-
-    if (dayRecord.periods.length === 1 && dayRecord.periods[0].id === id) {
-      // Uses object destructing to remove the DayRecord as the period we are deleting is the only period left for that day.
-      const { [date]: removed, ...remainingPeriods } = timesheetState.dayRecords;
-
-      setTimesheetState({
-        ...timesheetState,
-        dayRecords: remainingPeriods,
-      });
-
-      return;
-    }
-
-    let removedPeriod: TimeRecord | undefined;
-    // Remove the period from the day. We use Array.filter() to ensure we don't mutate the existing periods array
-    const periods = timesheetState.dayRecords[date].periods.filter(period => {
-      if (period.id === id) {
-        removedPeriod = period;
+  const deletePeriod = (id: number) => {
+    const timeRecords = timesheetState.timeRecords.filter(timeRecord => {
+      if (timeRecord.id === id) {
         return false;
       }
 
       return true;
     });
 
-    if (!removedPeriod) {
-      // TODO: error? this would be the case if the id or date were wrong
-      return;
-    }
-
-    const removedPeriodDuration = removedPeriod.end - removedPeriod.start;
-
     setTimesheetState({
       ...timesheetState,
-      dayRecords: {
-        ...timesheetState.dayRecords,
-        [date]: {
-          periods,
-          durationInMilliseconds: dayRecord.durationInMilliseconds - removedPeriodDuration,
-          timePeriodTypeTotals: {
-            ...dayRecord.timePeriodTypeTotals,
-            [removedPeriod.type]: dayRecord.timePeriodTypeTotals[removedPeriod.type] - removedPeriodDuration,
-          },
-        },
-      },
+      dayRecords: separateByDays(timeRecords),
+      timeRecords,
     });
   };
 

@@ -42,7 +42,7 @@ interface TimeRecordProps {
   startTime: number;
   endTime: number;
   type: TimePeriodType;
-  deletePeriod: (id: number, date: string) => void;
+  deletePeriod: (id: number) => void;
 }
 
 export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
@@ -53,7 +53,7 @@ export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
   deletePeriod,
 }: TimeRecordProps) => {
   const onDeleteClick = () => {
-    deletePeriod(id, format(startTime, 'yyyy-MM-dd'));
+    deletePeriod(id);
   };
 
   return (
