@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
-import TimePeriodType from 'models/TimePeriodType';
-import { timePeriodTypeAsColor } from 'utils/theme';
+import TimeRecordType from 'models/TimeRecordType';
+import { timeRecordTypeAsColor } from 'utils/theme';
 
 interface IconProps {
-  type: TimePeriodType;
+  type: TimeRecordType;
 }
 
 export const PeriodTypeIcon = styled<'div', IconProps>('div')`
-  background-color: ${(props: IconProps) => timePeriodTypeAsColor(props.type)};
+  background-color: ${(props: IconProps) => timeRecordTypeAsColor(props.type)};
   border-radius: 5px;
   height: 10px;
   justify-self: center;

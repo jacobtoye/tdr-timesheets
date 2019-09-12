@@ -1,24 +1,24 @@
 import * as React from 'react';
 import format from 'date-fns/format';
-import TimePeriodType from 'models/TimePeriodType';
-import { dummyPeriods } from './dummyPeriods';
+import TimeRecordType from 'models/TimeRecordType';
+import { dummyRecords } from './dummyRecords';
 
 export interface ActiveTimeRecord {
   start: number;
-  type: TimePeriodType;
+  type: TimeRecordType;
 }
 
 export interface TimeRecord {
   id: number;
   start: number;
   end: number;
-  type: TimePeriodType;
+  type: TimeRecordType;
 }
 
 export interface DayRecord {
   timeRecords: TimeRecord[];
   durationInMilliseconds: number;
-  timePeriodTypeTotals: Record<TimePeriodType, number>;
+  timeRecordTypeTotals: Record<TimeRecordType, number>;
 }
 
 interface TimesheetState {
@@ -48,11 +48,10 @@ const emptyDayRecord = (): DayRecord => {
     },
   } as DayRecord;
 };
-
-const sortPeriods = (periods: TimeRecord[], isAscending = true): TimeRecord[] => {
+const sortRecords = (records: TimeRecord[], isAscending = true): TimeRecord[] => {
   const modifier = isAscending ? 1 : -1;
 
-  return periods.sort((a, b) => {
+  return records.sort((a, b) => {
     if (a.start < b.start) {
       return -1 * modifier;
     } else if (a.start > b.start) {
@@ -63,8 +62,8 @@ const sortPeriods = (periods: TimeRecord[], isAscending = true): TimeRecord[] =>
   });
 };
 
-const separateByDays = (periods: TimeRecord[]): Record<string, DayRecord> => {
-  const dayRecords = sortPeriods([...periods], false).reduce((map: Record<string, DayRecord>, period: TimeRecord) => {
+const separateByDays = (records: TimeRecord[]): Record<string, DayRecord> => {
+  const dayRecords = sortRecords([...records], false).reduce((map: Record<string, DayRecord>, period: TimeRecord) => {
     const date = format(period.start, 'yyyy-MM-dd');
 
     if (!map[date]) {
@@ -75,14 +74,14 @@ const separateByDays = (periods: TimeRecord[]): Record<string, DayRecord> => {
 
     const duration = period.end - period.start;
     map[date].durationInMilliseconds += duration;
-    map[date].timePeriodTypeTotals[period.type] += duration;
+    map[date].timeRecordTypeTotals[period.type] += duration;
 
     return map;
   }, {});
 
   // sort each day's periods so the appear in an obvious order
   Object.keys(dayRecords).forEach(key => {
-    dayRecords[key].timeRecords = sortPeriods(dayRecords[key].timeRecords);
+    dayRecords[key].timeRecords = sortRecords(dayRecords[key].timeRecords);
   });
 
   return dayRecords;
@@ -90,8 +89,8 @@ const separateByDays = (periods: TimeRecord[]): Record<string, DayRecord> => {
 
 const initialState: TimesheetState = {
   activePeriod: undefined,
-  dayRecords: separateByDays(dummyPeriods),
-  timeRecords: dummyPeriods,
+  dayRecords: separateByDays(dummyRecords),
+  timeRecords: dummyRecords,
 };
 
 export const TimesheetContext = React.createContext<TimesheetContext>({
@@ -116,7 +115,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
       ...timesheetState,
       activePeriod: {
         start: Date.now(),
-        type: TimePeriodType.Normal,
+        type: TimeRecordType.Normal,
       },
     });
   };
@@ -128,7 +127,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
         id: activePeriod.start,
         start: activePeriod.start,
         end: Date.now(),
-        type: TimePeriodType.Normal,
+        type: TimeRecordType.Normal,
       };
 
       const timeRecords = [...timesheetState.timeRecords, newTimeRecord];

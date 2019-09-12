@@ -1,16 +1,16 @@
 import styled from '@emotion/styled-base';
-import TimePeriodType from 'models/TimePeriodType';
-import { theme, timePeriodTypeAsColor } from 'utils/theme';
+import TimeRecordType from 'models/TimeRecordType';
+import { theme, timeRecordTypeAsColor } from 'utils/theme';
 
 interface TotalProps {
   percent: number;
-  timePeriodType: TimePeriodType;
+  timeRecordType: TimeRecordType;
 }
 
 export const Total = styled<'div', TotalProps>('div')`
   align-items: flex-end;
   border-bottom: 4px solid;
-  border-bottom-color: ${(props: TotalProps) => timePeriodTypeAsColor(props.timePeriodType)};
+  border-bottom-color: ${(props: TotalProps) => timeRecordTypeAsColor(props.timeRecordType)};
   color: ${theme.palette.text.GREY};
   display: ${(props: TotalProps) => (props.percent > 0 ? 'flex' : 'none')};
   font-size: ${theme.text.overline.SIZE}px;

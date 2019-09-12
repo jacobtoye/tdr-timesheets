@@ -1,4 +1,4 @@
-enum TimePeriodType {
+enum TimeRecordType {
   AnnualLeave = 'Leave',
   Normal = 'Normal',
   Sick = 'Sick',
@@ -6,4 +6,4 @@ enum TimePeriodType {
   Training = 'Training',
 }
 
-export default TimePeriodType;
+export default TimeRecordType;

@@ -2,8 +2,8 @@ import * as React from 'react';
 import styled from '@emotion/styled';
 import format from 'date-fns/format';
 import Swipeout from 'rc-swipeout';
-import TimePeriodType from 'models/TimePeriodType';
-import { theme, timePeriodTypeAsColor } from 'utils/theme';
+import TimeRecordType from 'models/TimeRecordType';
+import { theme, timeRecordTypeAsColor } from 'utils/theme';
 import { PeriodTypeIcon } from './PeriodTypeIcon';
 import { toTimeString, duration } from 'utils/time';
 import { DeleteButton } from './DeleteButton';
@@ -41,7 +41,7 @@ interface TimeRecordProps {
   id: number;
   startTime: number;
   endTime: number;
-  type: TimePeriodType;
+  type: TimeRecordType;
   deletePeriod: (id: number) => void;
 }
 
@@ -62,7 +62,7 @@ export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
       autoClose
       left={[
         {
-          text: <EditButton color={timePeriodTypeAsColor(type)} />,
+          text: <EditButton color={timeRecordTypeAsColor(type)} />,
           onPress: () => console.log('edit'),
         },
       ]}
