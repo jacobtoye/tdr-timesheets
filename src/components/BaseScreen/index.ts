@@ -1,1 +1,1 @@
-export { BaseScreen } from './BaseScreen';
+export * from './BaseScreen';
