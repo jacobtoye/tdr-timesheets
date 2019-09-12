@@ -22,7 +22,7 @@ export interface DayRecord {
 }
 
 interface TimesheetState {
-  activePeriod?: ActiveTimeRecord;
+  activeRecord?: ActiveTimeRecord;
   dayRecords: Record<string, DayRecord>;
   timeRecords: TimeRecord[];
 }
@@ -88,7 +88,7 @@ const separateByDays = (records: TimeRecord[]): Record<string, DayRecord> => {
 };
 
 const initialState: TimesheetState = {
-  activePeriod: undefined,
+  activeRecord: undefined,
   dayRecords: separateByDays(dummyRecords),
   timeRecords: dummyRecords,
 };
@@ -106,14 +106,14 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
   const [timesheetState, setTimesheetState] = React.useState<TimesheetState>(initialState);
 
   const startActivePeriod = () => {
-    if (timesheetState.activePeriod) {
+    if (timesheetState.activeRecord) {
       // TODO: error since can't start a new active period if one is active
       return;
     }
 
     setTimesheetState({
       ...timesheetState,
-      activePeriod: {
+      activeRecord: {
         start: Date.now(),
         type: TimeRecordType.Normal,
       },
@@ -121,7 +121,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
   };
 
   const endActivePeriod = () => {
-    const activePeriod = timesheetState.activePeriod;
+    const activePeriod = timesheetState.activeRecord;
     if (activePeriod) {
       const newTimeRecord = {
         id: activePeriod.start,
@@ -133,7 +133,7 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
       const timeRecords = [...timesheetState.timeRecords, newTimeRecord];
 
       setTimesheetState({
-        activePeriod: undefined,
+        activeRecord: undefined,
         dayRecords: separateByDays(timeRecords),
         timeRecords,
       });
