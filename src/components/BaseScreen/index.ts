@@ -1,1 +1,1 @@
-export { default } from './BaseScreen';
+export { BaseScreen } from './BaseScreen';

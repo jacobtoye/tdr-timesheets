@@ -20,10 +20,8 @@ export const Fade = styled('div')`
     opacity: 1;
   }
 
-  // exit to 
+  // exit to
   &.${ANIMATION_FADE_CLASSNAME}-exit-active {
     opacity: 0;
   }
-}`;
-
-export default Fade;
+`;

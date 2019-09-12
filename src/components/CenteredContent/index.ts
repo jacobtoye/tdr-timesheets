@@ -1,1 +1,1 @@
-export { default } from './CenteredContent';
+export { CenteredContent } from './CenteredContent';

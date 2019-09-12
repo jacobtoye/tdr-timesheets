@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { theme } from 'utils/theme';
 
-const BaseScreen = styled('div')`
+export const BaseScreen = styled('div')`
   background-color: ${theme.palette.background.MAIN};
   color: ${theme.palette.text.PRIMARY};
   display: flex;
@@ -12,5 +12,3 @@ const BaseScreen = styled('div')`
   width: 100vw;
   user-select: none;
 `;
-
-export default BaseScreen;
