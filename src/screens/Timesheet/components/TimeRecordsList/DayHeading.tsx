@@ -31,7 +31,7 @@ interface DayHeadingProps {
 }
 
 export const DayHeading: React.FC<DayHeadingProps> = ({ day }: DayHeadingProps) => {
-  if (day.periods.length === 0) {
+  if (day.timeRecords.length === 0) {
     return null;
   }
 
@@ -39,7 +39,7 @@ export const DayHeading: React.FC<DayHeadingProps> = ({ day }: DayHeadingProps) 
 
   return (
     <DayHeadingWrapper>
-      {getDayText(day.periods[0].start)} -&nbsp;<strong>{toTimeString(totalDuration)}</strong>
+      {getDayText(day.timeRecords[0].start)} -&nbsp;<strong>{toTimeString(totalDuration)}</strong>
     </DayHeadingWrapper>
   );
 };

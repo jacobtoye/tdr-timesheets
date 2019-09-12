@@ -16,7 +16,7 @@ export interface TimeRecord {
 }
 
 export interface DayRecord {
-  periods: TimeRecord[];
+  timeRecords: TimeRecord[];
   durationInMilliseconds: number;
   timePeriodTypeTotals: Record<TimePeriodType, number>;
 }
@@ -37,7 +37,7 @@ interface TimesheetContext {
 
 const emptyDayRecord = (): DayRecord => {
   return {
-    periods: [],
+    timeRecords: [],
     durationInMilliseconds: 0,
     timePeriodTypeTotals: {
       [TimePeriodType.Normal]: 0,
@@ -71,8 +71,7 @@ const separateByDays = (periods: TimeRecord[]): Record<string, DayRecord> => {
       map[date] = emptyDayRecord();
     }
 
-    // TODO: sort
-    map[date].periods.push(period);
+    map[date].timeRecords.push(period);
 
     const duration = period.end - period.start;
     map[date].durationInMilliseconds += duration;
@@ -83,7 +82,7 @@ const separateByDays = (periods: TimeRecord[]): Record<string, DayRecord> => {
 
   // sort each day's periods so the appear in an obvious order
   Object.keys(dayRecords).forEach(key => {
-    dayRecords[key].periods = sortPeriods(dayRecords[key].periods);
+    dayRecords[key].timeRecords = sortPeriods(dayRecords[key].timeRecords);
   });
 
   return dayRecords;

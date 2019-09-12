@@ -29,7 +29,7 @@ export const TimeRecordsList: React.FC<{}> = () => {
           <React.Fragment key={key}>
             <DayHeading day={timesheetState.dayRecords[key]} />
             <TimeRecordContainer>
-              {timesheetState.dayRecords[key].periods.map((timePeriod: TimeRecord) => (
+              {timesheetState.dayRecords[key].timeRecords.map((timePeriod: TimeRecord) => (
                 <TimeRecordListItem
                   key={timePeriod.id}
                   id={timePeriod.id}
