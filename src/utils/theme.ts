@@ -1,4 +1,4 @@
-import TimePeriodType from 'models/TimePeriodType';
+import TimeRecordType from 'models/TimeRecordType';
 
 const grid = {
   BASELINE: 7,
@@ -89,17 +89,17 @@ export const theme = {
   text,
 };
 
-export const timePeriodTypeAsColor = (type: TimePeriodType) => {
+export const timeRecordTypeAsColor = (type: TimeRecordType) => {
   switch (type) {
-    case TimePeriodType.AnnualLeave:
+    case TimeRecordType.AnnualLeave:
       return theme.palette.primaryColors.LIGHT_BLUE;
-    case TimePeriodType.Normal:
+    case TimeRecordType.Normal:
       return theme.palette.primaryColors.BLUE;
-    case TimePeriodType.Sick:
+    case TimeRecordType.Sick:
       return theme.palette.primaryColors.GREEN;
-    case TimePeriodType.Stat:
+    case TimeRecordType.Stat:
       return theme.palette.primaryColors.ORANGE;
-    case TimePeriodType.Training:
+    case TimeRecordType.Training:
       return theme.palette.primaryColors.YELLOW;
   }
 };
