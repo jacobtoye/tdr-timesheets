@@ -20,7 +20,7 @@ const TimeRecordContainer = styled('div')`
 `;
 
 export const TimeRecordsList: React.FC<{}> = () => {
-  const { timesheetState, deleteRecord: deletePeriod } = useTimesheetContext();
+  const { timesheetState, deleteRecord } = useTimesheetContext();
   console.log(`render list ${Date.now()}`);
   return (
     <TimeRecordsContainer>
@@ -29,14 +29,14 @@ export const TimeRecordsList: React.FC<{}> = () => {
           <React.Fragment key={key}>
             <DayHeading day={timesheetState.dayRecords[key]} />
             <TimeRecordContainer>
-              {timesheetState.dayRecords[key].timeRecords.map((timePeriod: TimeRecord) => (
+              {timesheetState.dayRecords[key].timeRecords.map((timeRecord: TimeRecord) => (
                 <TimeRecordListItem
-                  key={timePeriod.id}
-                  id={timePeriod.id}
-                  startTime={timePeriod.start}
-                  endTime={timePeriod.end}
-                  type={timePeriod.type}
-                  deletePeriod={deletePeriod}
+                  key={timeRecord.id}
+                  id={timeRecord.id}
+                  startTime={timeRecord.start}
+                  endTime={timeRecord.end}
+                  type={timeRecord.type}
+                  deleteRecord={deleteRecord}
                 />
               ))}
             </TimeRecordContainer>

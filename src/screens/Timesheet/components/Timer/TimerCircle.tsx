@@ -42,10 +42,10 @@ const StartTimeLabel = styled('div')`
 `;
 
 interface TimerCircleProps {
-  activePeriod?: ActiveTimeRecord;
+  activeRecord?: ActiveTimeRecord;
 }
 
-export const TimerCircle: React.FC<TimerCircleProps> = ({ activePeriod }: TimerCircleProps) => {
+export const TimerCircle: React.FC<TimerCircleProps> = ({ activeRecord }: TimerCircleProps) => {
   const [now, setNow] = useState(Date.now());
 
   useInterval(() => {
@@ -54,10 +54,10 @@ export const TimerCircle: React.FC<TimerCircleProps> = ({ activePeriod }: TimerC
 
   return (
     <TimerCircleContainer>
-      {activePeriod ? (
+      {activeRecord ? (
         <Fragment>
-          <TimeLabel>{toTimeString(duration(now - activePeriod.start), true)}</TimeLabel>
-          <StartTimeLabel>Started @ {format(activePeriod.start, 'h:mm aa')}</StartTimeLabel>
+          <TimeLabel>{toTimeString(duration(now - activeRecord.start), true)}</TimeLabel>
+          <StartTimeLabel>Started @ {format(activeRecord.start, 'h:mm aa')}</StartTimeLabel>
         </Fragment>
       ) : (
         <Fragment>

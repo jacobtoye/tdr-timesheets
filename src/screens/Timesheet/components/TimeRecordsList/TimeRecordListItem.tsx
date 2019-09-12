@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 import Swipeout from 'rc-swipeout';
 import TimeRecordType from 'models/TimeRecordType';
 import { theme, timeRecordTypeAsColor } from 'utils/theme';
-import { PeriodTypeIcon } from './PeriodTypeIcon';
+import { RecordTypeIcon } from './RecordTypeIcon';
 import { toTimeString, duration } from 'utils/time';
 import { DeleteButton } from './DeleteButton';
 import { EditButton } from './EditButton';
@@ -36,13 +36,13 @@ const TimePeriodTotal = styled('div')`
   line-height: ${theme.text.body2.LINE_HEIGHT}px;
 `;
 
-// TODO: should jsut pass in the TimeRecord
+// TODO: should jsut pass in the TimeRecordssss
 interface TimeRecordProps {
   id: number;
   startTime: number;
   endTime: number;
   type: TimeRecordType;
-  deletePeriod: (id: number) => void;
+  deleteRecord: (id: number) => void;
 }
 
 export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
@@ -50,10 +50,10 @@ export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
   startTime,
   endTime,
   type,
-  deletePeriod,
+  deleteRecord,
 }: TimeRecordProps) => {
   const onDeleteClick = () => {
-    deletePeriod(id);
+    deleteRecord(id);
   };
 
   return (
@@ -74,7 +74,7 @@ export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
       ]}
     >
       <TimeRecordWrapper>
-        <PeriodTypeIcon type={type} />
+        <RecordTypeIcon type={type} />
         <TimePeriod>
           {format(startTime, 'h:mm aa')} - {format(endTime, 'h:mm aa')}
         </TimePeriod>

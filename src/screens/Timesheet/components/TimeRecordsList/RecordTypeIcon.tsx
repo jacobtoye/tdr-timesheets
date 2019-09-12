@@ -6,7 +6,7 @@ interface IconProps {
   type: TimeRecordType;
 }
 
-export const PeriodTypeIcon = styled<'div', IconProps>('div')`
+export const RecordTypeIcon = styled<'div', IconProps>('div')`
   background-color: ${(props: IconProps) => timeRecordTypeAsColor(props.type)};
   border-radius: 5px;
   height: 10px;

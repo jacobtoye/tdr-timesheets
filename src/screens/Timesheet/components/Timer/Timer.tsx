@@ -38,23 +38,23 @@ const StartIcon = styled(FaPlay)`
 `;
 
 export const Timer: React.FC<{}> = () => {
-  const { timesheetState, startActiveRecord: startActivePeriod, endActiveRecord: endActivePeriod } = useTimesheetContext();
-  const activePeriod = timesheetState.activeRecord;
+  const { timesheetState, startActiveRecord, endActiveRecord } = useTimesheetContext();
+  const activeRecord = timesheetState.activeRecord;
 
   const onClick = () => {
-    if (activePeriod) {
-      endActivePeriod();
+    if (activeRecord) {
+      endActiveRecord();
       return;
     }
 
-    startActivePeriod();
+    startActiveRecord();
   };
 
   return (
     <TimerContainer>
-      <TimerCircle activePeriod={activePeriod} />
+      <TimerCircle activeRecord={activeRecord} />
       <TimerButtonContainer>
-        <TimerButton onClick={onClick}>{activePeriod ? <StopIcon /> : <StartIcon />}</TimerButton>
+        <TimerButton onClick={onClick}>{activeRecord ? <StopIcon /> : <StartIcon />}</TimerButton>
       </TimerButtonContainer>
     </TimerContainer>
   );

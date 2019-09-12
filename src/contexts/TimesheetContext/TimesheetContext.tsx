@@ -63,23 +63,23 @@ const sortRecords = (records: TimeRecord[], isAscending = true): TimeRecord[] =>
 };
 
 const separateByDays = (records: TimeRecord[]): Record<string, DayRecord> => {
-  const dayRecords = sortRecords([...records], false).reduce((map: Record<string, DayRecord>, period: TimeRecord) => {
-    const date = format(period.start, 'yyyy-MM-dd');
+  const dayRecords = sortRecords([...records], false).reduce((map: Record<string, DayRecord>, record: TimeRecord) => {
+    const date = format(record.start, 'yyyy-MM-dd');
 
     if (!map[date]) {
       map[date] = emptyDayRecord();
     }
 
-    map[date].timeRecords.push(period);
+    map[date].timeRecords.push(record);
 
-    const duration = period.end - period.start;
+    const duration = record.end - record.start;
     map[date].durationInMilliseconds += duration;
-    map[date].timeRecordTypeTotals[period.type] += duration;
+    map[date].timeRecordTypeTotals[record.type] += duration;
 
     return map;
   }, {});
 
-  // sort each day's periods so the appear in an obvious order
+  // sort each day's records so the appear in an obvious order
   Object.keys(dayRecords).forEach(key => {
     dayRecords[key].timeRecords = sortRecords(dayRecords[key].timeRecords);
   });
@@ -105,9 +105,9 @@ export const TimesheetContext = React.createContext<TimesheetContext>({
 export const TimesheetProvider: React.FC<{}> = ({ children }) => {
   const [timesheetState, setTimesheetState] = React.useState<TimesheetState>(initialState);
 
-  const startActivePeriod = () => {
+  const startActiveRecord = () => {
     if (timesheetState.activeRecord) {
-      // TODO: error since can't start a new active period if one is active
+      // TODO: error since can't start a new active record if one is active
       return;
     }
 
@@ -120,12 +120,12 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
     });
   };
 
-  const endActivePeriod = () => {
-    const activePeriod = timesheetState.activeRecord;
-    if (activePeriod) {
+  const endActiveRecord = () => {
+    const activeRecord = timesheetState.activeRecord;
+    if (activeRecord) {
       const newTimeRecord = {
-        id: activePeriod.start,
-        start: activePeriod.start,
+        id: activeRecord.start,
+        start: activeRecord.start,
         end: Date.now(),
         type: TimeRecordType.Normal,
       };
@@ -140,11 +140,11 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
     }
   };
 
-  const deleteActivePeriod = () => {
+  const deleteActiveRecord = () => {
     // TODO: delete from the dictionary
   };
 
-  const deletePeriod = (id: number) => {
+  const deleteRecord = (id: number) => {
     const timeRecords = timesheetState.timeRecords.filter(timeRecord => {
       if (timeRecord.id === id) {
         return false;
@@ -164,10 +164,10 @@ export const TimesheetProvider: React.FC<{}> = ({ children }) => {
     <TimesheetContext.Provider
       value={{
         timesheetState,
-        startActiveRecord: startActivePeriod,
-        endActiveRecord: endActivePeriod,
-        deleteActiveRecord: deleteActivePeriod,
-        deleteRecord: deletePeriod,
+        startActiveRecord,
+        endActiveRecord,
+        deleteActiveRecord,
+        deleteRecord,
       }}
     >
       {children}
