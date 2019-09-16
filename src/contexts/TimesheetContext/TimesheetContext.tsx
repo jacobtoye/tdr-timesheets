@@ -35,19 +35,6 @@ interface TimesheetContext {
   deleteRecord: (id: number) => void;
 }
 
-const emptyDayRecord = (): DayRecord => {
-  return {
-    timeRecords: [],
-    durationInMilliseconds: 0,
-    timePeriodTypeTotals: {
-      [TimePeriodType.Normal]: 0,
-      [TimePeriodType.AnnualLeave]: 0,
-      [TimePeriodType.Sick]: 0,
-      [TimePeriodType.Training]: 0,
-      [TimePeriodType.Stat]: 0,
-    },
-  } as DayRecord;
-};
 const sortRecords = (records: TimeRecord[], isAscending = true): TimeRecord[] => {
   const modifier = isAscending ? 1 : -1;
 
@@ -67,7 +54,17 @@ const separateByDays = (records: TimeRecord[]): Record<string, DayRecord> => {
     const date = format(record.start, 'yyyy-MM-dd');
 
     if (!map[date]) {
-      map[date] = emptyDayRecord();
+      map[date] = {
+        timeRecords: [],
+        durationInMilliseconds: 0,
+        timeRecordTypeTotals: {
+          [TimeRecordType.Normal]: 0,
+          [TimeRecordType.AnnualLeave]: 0,
+          [TimeRecordType.Sick]: 0,
+          [TimeRecordType.Training]: 0,
+          [TimeRecordType.Stat]: 0,
+        },
+      };
     }
 
     map[date].timeRecords.push(record);
