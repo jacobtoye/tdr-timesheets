@@ -10,7 +10,7 @@ const TimeRecordsContainer = styled('div')`
 `;
 
 const TimeRecordContainer = styled('div')`
-  border-bottom: 1px solid ${theme.palette.GREY};
+  border-bottom: 2px solid ${theme.palette.GREY};
   padding: ${theme.grid.BASELINE * 3}px 0;
 
   /* Need to do this here as the child div is a 3rd part component that is not emotion styled */
