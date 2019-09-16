@@ -8,11 +8,11 @@ import { theme } from 'utils/theme';
 import { duration, toTimeString } from 'utils/time';
 
 const DayHeadingWrapper = styled(CenteredContent)`
-  border-bottom: 1px solid ${theme.palette.GREY};
+  border-bottom: 2px solid ${theme.palette.GREY};
   color: ${theme.palette.text.SECONDARY};
   flex-direction: initial;
   font-size: ${theme.text.body2}px;
-  height: ${theme.grid.BASELINE * 9}px;
+  height: ${theme.grid.BASELINE * 11}px;
   width: 100%;
 `;
 
