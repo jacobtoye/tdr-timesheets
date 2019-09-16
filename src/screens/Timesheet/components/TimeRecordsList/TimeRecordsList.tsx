@@ -21,7 +21,7 @@ const TimeRecordContainer = styled('div')`
 
 export const TimeRecordsList: React.FC<{}> = () => {
   const { timesheetState, deleteRecord } = useTimesheetContext();
-  console.log(`render list ${Date.now()}`);
+
   return (
     <TimeRecordsContainer>
       {Object.keys(timesheetState.dayRecords).map((key: string) => {
