@@ -12,6 +12,7 @@ const TotalHeader = styled('div')`
   font-size: ${theme.text.body2.SIZE}px;
   height: ${theme.text.body2.LINE_HEIGHT}px;
   line-height: ${theme.text.body2.LINE_HEIGHT}px;
+  margin-bottom: ${theme.grid.BASELINE}px;
 `;
 
 const Totals = styled('div')`
