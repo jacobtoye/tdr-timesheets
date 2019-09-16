@@ -8,6 +8,8 @@ import { RecordTypeIcon } from './RecordTypeIcon';
 import { toTimeString, duration } from 'utils/time';
 import { DeleteButton } from './DeleteButton';
 import { EditButton } from './EditButton';
+import { EditTimeRecordModal } from './EditTimeRecordModal';
+import useModal from 'hooks/useModal';
 
 // Need to do this so rc-swipeout workds :\
 import 'rc-swipeout/assets/index.css';
@@ -52,8 +54,14 @@ export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
   type,
   deleteRecord,
 }: TimeRecordProps) => {
+  const { isShowing, toggle } = useModal();
+
   const onDeleteClick = () => {
     deleteRecord(id);
+  };
+
+  const onEditClick = () => {
+    toggle();
   };
 
   return (
@@ -63,7 +71,7 @@ export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
       left={[
         {
           text: <EditButton color={timeRecordTypeAsColor(type)} />,
-          onPress: () => console.log('edit'),
+          onPress: onEditClick,
         },
       ]}
       right={[
@@ -80,6 +88,7 @@ export const TimeRecordListItem: React.FC<TimeRecordProps> = ({
         </TimePeriod>
         <TimePeriodTotal>{toTimeString(duration(endTime - startTime))}</TimePeriodTotal>
       </TimeRecordWrapper>
+      <EditTimeRecordModal isShowing={isShowing} timeRecordId={id} toggle={toggle} />
     </Swipeout>
   );
 };
