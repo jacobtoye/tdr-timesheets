@@ -16,7 +16,7 @@
 }
 
 body {
-  font: 15px/22px 'Inter', system-ui, sans-serif;
+  font: 15px/21px 'Inter', system-ui, sans-serif;
 
   font-size: var(--fontSize);
   line-height: var(--lineHeight);
