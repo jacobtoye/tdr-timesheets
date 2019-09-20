@@ -9,10 +9,6 @@ interface EditTimeRecordModalProps {
 }
 
 export const EditTimeRecordModal: React.FC<EditTimeRecordModalProps> = ({ isShowing, toggle, timeRecordId }) => {
-  if (!isShowing) {
-    return null;
-  }
-
   const onSaveClicked = () => {
     console.log(timeRecordId);
   };
@@ -20,7 +16,7 @@ export const EditTimeRecordModal: React.FC<EditTimeRecordModalProps> = ({ isShow
   // TODO: split up EditTimeRecord
 
   return (
-    <Modal>
+    <Modal isShowing={isShowing}>
       <ModalHeader text="Edit time" onClose={toggle} onSave={onSaveClicked} />
       <EditTimeRecord />
     </Modal>
